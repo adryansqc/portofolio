@@ -20,7 +20,7 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full animate-spin-slow opacity-75 group-hover:opacity-100 transition-opacity"></div>
             <div className="relative w-full h-full p-1">
               <Image
-                src="/profile.jpg"
+                src="/4.jpg"
                 alt="Profile Picture"
                 fill
                 className="rounded-full object-cover border-4 border-white shadow-lg transform group-hover:scale-105 transition-transform duration-300"
@@ -75,7 +75,7 @@ export default function Home() {
                 Frontend Development
               </h3>
               <p className="text-slate-600 dark:text-slate-300">
-                React, Next.js, TypeScript, Tailwind CSS
+                Next.js, Tailwind CSS, Bootstrap
               </p>
               <div className="mt-4 h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
                 <div className="h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 origin-left"></div>
@@ -92,7 +92,7 @@ export default function Home() {
                 Backend Development
               </h3>
               <p className="text-slate-600 dark:text-slate-300">
-                Node.js, Python, PostgreSQL, MongoDB
+                PHP (Framework Laravel), Mysql
               </p>
               <div className="mt-4 h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
                 <div className="h-full bg-gradient-to-r from-green-500 to-green-600 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 origin-left"></div>
@@ -109,7 +109,7 @@ export default function Home() {
                 UI/UX Design
               </h3>
               <p className="text-slate-600 dark:text-slate-300">
-                Figma, Adobe XD, Prototyping, User Research
+                Figma
               </p>
               <div className="mt-4 h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
                 <div className="h-full bg-gradient-to-r from-purple-500 to-purple-600 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 origin-left"></div>
@@ -131,7 +131,7 @@ export default function Home() {
             </div>
             <div className="text-center group">
               <div className="text-3xl md:text-4xl font-bold text-green-600 dark:text-green-400 mb-2">
-                3+
+                2+
               </div>
               <p className="text-slate-600 dark:text-slate-300 group-hover:text-slate-800 dark:group-hover:text-slate-100 transition-colors">
                 Tahun Pengalaman

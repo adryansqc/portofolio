@@ -49,7 +49,7 @@ export default function Hero() {
         <div className="mb-8 relative">
           <div className="w-32 h-32 sm:w-40 sm:h-40 mx-auto rounded-full overflow-hidden border-4 border-white shadow-2xl transform hover:scale-105 transition-transform duration-300">
             <Image
-              src="/profile-placeholder.jpg" // Ganti dengan foto profil Anda
+              src="/4.jpg" 
               alt="Profile"
               width={160}
               height={160}

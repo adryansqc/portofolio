@@ -26,7 +26,7 @@ export default function Skills() {
       icon: "🎨",
       skills: [
         { name: "React/Next.js", level: 90, icon: "⚛️", color: "blue" },
-        { name: "TypeScript", level: 85, icon: "📘", color: "blue" },
+        // { name: "TypeScript", level: 85, icon: "📘", color: "blue" },
         { name: "Tailwind CSS", level: 88, icon: "🎨", color: "cyan" },
         { name: "JavaScript", level: 92, icon: "⚡", color: "yellow" },
         { name: "HTML/CSS", level: 95, icon: "🌐", color: "orange" },
@@ -37,24 +37,25 @@ export default function Skills() {
       title: "Backend Development",
       icon: "⚙️",
       skills: [
-        { name: "Node.js", level: 85, icon: "🟢", color: "green" },
-        { name: "Express.js", level: 80, icon: "🚀", color: "gray" },
-        { name: "Python", level: 78, icon: "🐍", color: "blue" },
-        { name: "PostgreSQL", level: 82, icon: "🐘", color: "blue" },
-        { name: "MongoDB", level: 75, icon: "🍃", color: "green" },
-        { name: "REST APIs", level: 88, icon: "🔗", color: "purple" }
+        // { name: "Node.js", level: 85, icon: "🟢", color: "green" },
+        // { name: "Express.js", level: 80, icon: "🚀", color: "gray" },
+        { name: "Python", level: 50, icon: "🐍", color: "green" },
+        { name: "PHP (Laravel)", level: 80, icon: "🐍", color: "blue" },
+        { name: "Mysql", level: 82, icon: "🐘", color: "gray" },
+        // { name: "MongoDB", level: 75, icon: "🍃", color: "green" },
+        { name: "REST APIs", level: 50, icon: "🔗", color: "purple" }
       ]
     },
     {
       title: "Tools & Technologies",
       icon: "🛠️",
       skills: [
-        { name: "Git/GitHub", level: 90, icon: "📚", color: "gray" },
-        { name: "Docker", level: 70, icon: "🐳", color: "blue" },
-        { name: "AWS", level: 65, icon: "☁️", color: "orange" },
+        { name: "Git/GitHub", level: 70, icon: "📚", color: "gray" },
+        // { name: "Docker", level: 70, icon: "🐳", color: "blue" },
+        // { name: "AWS", level: 65, icon: "☁️", color: "orange" },
         { name: "Figma", level: 80, icon: "🎨", color: "purple" },
         { name: "VS Code", level: 95, icon: "💻", color: "blue" },
-        { name: "Postman", level: 85, icon: "📮", color: "orange" }
+        { name: "Postman", level: 55, icon: "📮", color: "orange" }
       ]
     }
   ];
