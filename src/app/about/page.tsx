@@ -68,28 +68,7 @@ export default function About() {
     { name: "MySQL", color: "bg-orange-500", icon: "🗄️" },
     { name: "PHP", color: "bg-indigo-500", icon: "🐘" },
     { name: "Figma", color: "bg-pink-500", icon: "🎯" }
-  ];
-
-  const journey = [
-    {
-      year: "2022",
-      title: "Memulai Perjalanan",
-      description: "Mulai belajar web development dengan HTML, CSS, dan JavaScript dasar.",
-      color: "bg-blue-500"
-    },
-    {
-      year: "2023", 
-      title: "Eksplorasi Framework",
-      description: "Mendalami Laravel untuk backend dan mulai belajar React untuk frontend.",
-      color: "bg-green-500"
-    },
-    {
-      year: "2024",
-      title: "Professional Growth",
-      description: "Mengerjakan proyek-proyek real dan mengembangkan skill UI/UX design.",
-      color: "bg-purple-500"
-    }
-  ];
+  ]; 
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-900 relative overflow-hidden">

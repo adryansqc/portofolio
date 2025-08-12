@@ -63,7 +63,7 @@ export default function Hero() {
 
         {/* Main Heading */}
         <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6">
-          Hi, I'm{' '}
+          Hi, Im{' '}
           <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent">
             Adryan
           </span>

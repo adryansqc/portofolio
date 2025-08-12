@@ -57,7 +57,7 @@ const projects = [
 
 export default function ProjectsPage() {
   const [filter, setFilter] = useState('All')
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null)
+  const [, setHoveredProject] = useState<number | null>(null)
 
   const categories = ['All', 'Full Stack', 'Frontend', 'Backend']
   const filteredProjects = filter === 'All' 
