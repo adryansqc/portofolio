@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from "next/link";
 
 export default function Hero() {
   const [currentText, setCurrentText] = useState('');
@@ -84,7 +85,7 @@ export default function Hero() {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <a
+          <Link
             href="/projects"
             className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl transform"
           >
@@ -94,7 +95,7 @@ export default function Hero() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </span>
-          </a>
+          </Link>
           
           <a
             href="/contact"
