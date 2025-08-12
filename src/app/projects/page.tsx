@@ -244,7 +244,7 @@ export default function ProjectsPage() {
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <a 
-                  href="/contact"
+                  href="https://github.com/adryansqc"
                   className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
                 >
                   <ExternalLink className="w-5 h-5" />
