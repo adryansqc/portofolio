@@ -140,12 +140,12 @@ export default function ProjectsPage() {
               )}
 
               {/* Status Badge */}
-              <div className="absolute top-4 right-4 z-20">
+              {/* <div className="absolute top-4 right-4 z-20">
                 <div className="flex items-center gap-1 bg-green-500/20 backdrop-blur-sm border border-green-500/30 text-green-400 text-xs font-semibold px-3 py-1 rounded-full">
                   <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
                   {project.status}
                 </div>
-              </div>
+              </div> */}
 
               {/* Enhanced Image Container */}
               <div className="relative h-64 overflow-hidden rounded-t-3xl">
