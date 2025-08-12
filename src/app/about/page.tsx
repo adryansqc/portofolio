@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Code2, Heart, Target, Lightbulb, Coffee, Rocket, Star, Award, Users, Clock } from "lucide-react";
 import Link from "next/link";
-import Skills from "@/components/skill";
 
 export default function About() {
   const [isVisible, setIsVisible] = useState(false);
