@@ -71,7 +71,7 @@ export default function Hero() {
 
         {/* Typing Animation */}
         <div className="text-xl sm:text-2xl lg:text-3xl text-gray-600 dark:text-gray-300 mb-8 h-12">
-          <span>I'm a </span>
+          <span>Im a </span>
           <span className="text-blue-600 dark:text-blue-400 font-semibold">
             {currentText}
             <span className="animate-pulse">|</span>
