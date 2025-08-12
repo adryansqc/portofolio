@@ -193,7 +193,7 @@ export default function Skills() {
               Always Learning 📚
             </h3>
             <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Technology evolves rapidly, and I'm committed to continuous learning. 
+              Technology evolves rapidly, and Im committed to continuous learning. 
               I regularly update my skills and explore new technologies to stay current with industry trends.
             </p>
           </div>

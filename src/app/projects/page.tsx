@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ExternalLink, Github, Star, Calendar, Code2, Sparkles } from 'lucide-react'
+import { ExternalLink, Star, Calendar, Code2, Sparkles } from 'lucide-react'
 import { useState } from 'react'
 
 const projects = [

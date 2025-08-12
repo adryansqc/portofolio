@@ -9,13 +9,14 @@ export default function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   
-  const texts = [
-    'Full Stack Developer',
-    'Frontend Specialist', 
-    'UI/UX Enthusiast',
-  ];
+  
 
   useEffect(() => {
+    const texts = [
+      'Full Stack Developer',
+      'Frontend Specialist', 
+      'UI/UX Enthusiast',
+    ];
     const timeout = setTimeout(() => {
       const current = texts[currentIndex];
       
@@ -34,7 +35,7 @@ export default function Hero() {
     }, isDeleting ? 50 : 100);
 
     return () => clearTimeout(timeout);
-  }, [currentText, currentIndex, isDeleting, texts]);
+  }, [currentText, currentIndex, isDeleting]);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900">
