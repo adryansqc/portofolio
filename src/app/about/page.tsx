@@ -258,7 +258,7 @@ export default function About() {
                   Lihat Portfolio
                 </Link>
                 <a
-                  href="https://wa.me/089667884100"
+                  href="https://wa.me/+6289667884100"
                   className="inline-flex items-center gap-2 border-2 border-white text-white px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-blue-600 transition-all duration-300 transform hover:scale-105"
                 >
                   <Heart className="w-5 h-5" />

@@ -308,7 +308,7 @@ export default function Home() {
               </Link>
 
               <a
-                href="https://wa.me/089667884100"
+                href="https://wa.me/+6289667884100"
                 className="group relative border-3 border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white font-bold py-4 px-10 rounded-2xl transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl"
               >
                 <span className="flex items-center">
