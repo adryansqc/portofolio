@@ -13,7 +13,7 @@ const projects = [
     demo: 'https://jambisnis.com',
     tech: ['Laravel', 'Bootstrap', 'Tailwind Css', 'Mysql'],
     category: 'Full Stack',
-    featured: true,
+    featured: false,
     year: '2025',
     status: 'Live'
   },
@@ -37,7 +37,7 @@ const projects = [
     demo: 'https://smappdb.smatrisuksesbsjambi.sch.id/',
     tech: ['Laravel', 'Bootstrap', 'Mysql'],
     category: 'Full Stack',
-    featured: true,
+    featured: false,
     year: '2024',
     status: 'Live'
   },
