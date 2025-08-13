@@ -56,7 +56,7 @@ export default function Home() {
       } else {
         setMessages(prev => [...prev, { text: `Error: ${data.error}`, isUser: false }]);
       }
-    } catch (error) {
+    } catch {
       setMessages(prev => [...prev, { text: 'Maaf, terjadi kesalahan. Coba lagi nanti.', isUser: false }]);
     } finally {
       setIsLoading(false);

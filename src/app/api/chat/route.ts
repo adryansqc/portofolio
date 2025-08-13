@@ -10,7 +10,7 @@ export const runtime = 'edge'; // Biar cepat
 
 export async function POST(req: Request) {
   try {
-    const { prompt } = await req.json();
+    const { prompt } = (await req.json()) as { prompt?: string };
 
     if (!prompt) {
       return new Response(JSON.stringify({ error: 'Prompt is required' }), {
@@ -28,8 +28,12 @@ export async function POST(req: Request) {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
-  } catch (err: any) {
-    return new Response(JSON.stringify({ error: err.message }), {
+  } catch (err: unknown) {
+    let message = 'Unknown error';
+    if (err instanceof Error) {
+      message = err.message;
+    }
+    return new Response(JSON.stringify({ error: message }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });
