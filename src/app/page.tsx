@@ -2,15 +2,24 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import ReactMarkdown from 'react-markdown';
 
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
 
+  // Chat widget states
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [prompt, setPrompt] = useState('');
+  const [messages, setMessages] = useState<Array<{text: string, isUser: boolean}>>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Efek mouse dan animasi muncul
   useEffect(() => {
     setIsVisible(true);
-    
+
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -19,11 +28,53 @@ export default function Home() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+  // Auto scroll to bottom when new message
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  // Kirim prompt ke API
+  async function sendMessage() {
+    if (!prompt.trim()) return;
+
+    const newMessage = { text: prompt, isUser: true };
+    setMessages(prev => [...prev, newMessage]);
+    setIsLoading(true);
+    setPrompt('');
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt }),
+      });
+      
+      const data = await res.json();
+      
+      if (data.text) {
+        setMessages(prev => [...prev, { text: data.text, isUser: false }]);
+      } else {
+        setMessages(prev => [...prev, { text: `Error: ${data.error}`, isUser: false }]);
+      }
+    } catch (error) {
+      setMessages(prev => [...prev, { text: 'Maaf, terjadi kesalahan. Coba lagi nanti.', isUser: false }]);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-900 overflow-hidden relative">
       {/* Interactive cursor follower */}
       <div 
-        className="fixed w-6 h-6 bg-blue-500/20 rounded-full pointer-events-none z-50 transition-all duration-300 ease-out"
+        className="fixed w-6 h-6 bg-blue-500/20 rounded-full pointer-events-none z-40 transition-all duration-300 ease-out"
         style={{
           left: mousePosition.x - 12,
           top: mousePosition.y - 12,
@@ -48,12 +99,6 @@ export default function Home() {
       <div className="container mx-auto px-6 py-12 relative z-10">
         {/* Enhanced Header */}
         <header className="text-center mb-20 animate-fade-in-up">
-          {/* Status badge */}
-          {/* <div className="inline-flex items-center gap-2 bg-green-100/80 dark:bg-green-900/30 backdrop-blur-sm border border-green-200 dark:border-green-700 rounded-full px-4 py-2 mb-8 animate-pulse-gentle">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-ping"></div>
-            <span className="text-green-700 dark:text-green-400 text-sm font-medium">Available for work</span>
-          </div> */}
-
           <div className="relative w-40 h-40 mx-auto mb-8 group">
             {/* Multiple rotating rings */}
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full animate-spin-slow opacity-75 group-hover:opacity-100 transition-opacity"></div>
@@ -323,11 +368,6 @@ export default function Home() {
 
             {/* Social links */}
             <div className="flex justify-center space-x-6 mt-12">
-              <a href="#" className="w-12 h-12 bg-slate-200 dark:bg-slate-700 rounded-full flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all duration-300 transform hover:scale-110 hover:-translate-y-1">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-                </svg>
-              </a>
               <a href="#" className="w-12 h-12 bg-slate-200 dark:bg-slate-700 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-110 hover:-translate-y-1">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -341,6 +381,133 @@ export default function Home() {
             </div>
           </div>
         </section>
+      </div>
+
+      {/* Chat Widget - Instagram/Facebook Style */}
+      <div className="fixed bottom-6 right-6 z-50">
+        {/* Chat Button */}
+        {!isChatOpen && (
+          <div className="relative group">
+            <button
+              onClick={() => setIsChatOpen(true)}
+              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 animate-bounce-gentle"
+            >
+              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4v6l6-6h6c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+              </svg>
+            </button>
+            
+            {/* Tooltip */}
+            <div className="absolute right-20 top-1/2 transform -translate-y-1/2 bg-slate-800 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+              Chat dengan AI Assistant
+              <div className="absolute right-0 top-1/2 transform translate-x-1 -translate-y-1/2 w-0 h-0 border-l-4 border-l-slate-800 border-t-4 border-t-transparent border-b-4 border-b-transparent"></div>
+            </div>
+
+            {/* Notification dot */}
+            <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full animate-ping"></div>
+            <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full"></div>
+          </div>
+        )}
+
+        {/* Chat Window */}
+        {isChatOpen && (
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-80 sm:w-96 h-96 flex flex-col overflow-hidden animate-slide-up border border-slate-200 dark:border-slate-700">
+            {/* Chat Header */}
+            <div className="bg-gradient-to-r from-blue-500 to-purple-600 px-4 py-3 flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-white font-semibold text-sm">AI Assistant</h3>
+                  <p className="text-white/80 text-xs">Online sekarang</p>
+                </div>
+              </div>
+              
+              <button
+                onClick={() => setIsChatOpen(false)}
+                className="text-white/80 hover:text-white transition-colors"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+              </button>
+            </div>
+
+            {/* Messages Container */}
+            <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-slate-50 dark:bg-slate-900">
+              {/* Welcome message */}
+              {messages.length === 0 && (
+                <div className="flex justify-start">
+                  <div className="bg-white dark:bg-slate-700 rounded-2xl rounded-bl-md px-4 py-2 max-w-xs shadow-sm">
+                    <p className="text-sm text-slate-800 dark:text-slate-200">
+                      Halo! 👋 Saya AI Assistant Adryan. Ada yang bisa saya bantu?
+                    </p>
+                  </div>
+                </div>
+              )}
+              
+              {/* Messages */}
+              {messages.map((message, index) => (
+                <div key={index} className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`rounded-2xl px-4 py-2 max-w-xs shadow-sm ${
+                    message.isUser 
+                      ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-br-md' 
+                      : 'bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-bl-md'
+                  }`}>
+                    <ReactMarkdown components={{
+                      // Override p tag to add the styling classes
+                      p: ({node, ...props}) => <p className="text-sm prose prose-sm dark:prose-invert max-w-none" {...props}/>
+                    }}>
+                      {message.text}
+                    </ReactMarkdown>
+                  </div>
+                </div>
+              ))}
+              
+              {/* Loading indicator */}
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className="bg-white dark:bg-slate-700 rounded-2xl rounded-bl-md px-4 py-3 shadow-sm">
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce animation-delay-200"></div>
+                      <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce animation-delay-400"></div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Input Area */}
+            <div className="p-4 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+              <div className="flex space-x-2">
+                <input
+                  type="text"
+                  value={prompt}
+                  onChange={(e) => setPrompt(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Ketik pesan..."
+                  className="flex-1 bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 border-0"
+                  disabled={isLoading}
+                />
+                <button
+                  onClick={sendMessage}
+                  disabled={isLoading || !prompt.trim()}
+                  className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-full w-10 h-10 flex items-center justify-center transition-all duration-200 transform hover:scale-105"
+                >
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       <style jsx>{`
@@ -408,6 +575,22 @@ export default function Home() {
           from { transform: translateY(20px); opacity: 0; }
           to { transform: translateY(0); opacity: 1; }
         }
+
+        @keyframes bounce-gentle {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+
+        @keyframes slide-up {
+          from { 
+            opacity: 0; 
+            transform: translateY(20px) scale(0.95); 
+          }
+          to { 
+            opacity: 1; 
+            transform: translateY(0) scale(1); 
+          }
+        }
         
         .animate-blob { animation: blob 7s infinite; }
         .animate-fade-in-up { animation: fade-in-up 0.8s ease-out; }
@@ -420,6 +603,8 @@ export default function Home() {
         .animate-blink { animation: blink 1s infinite; }
         .animate-pulse-gentle { animation: pulse-gentle 2s ease-in-out infinite; }
         .animate-count-up { animation: count-up 1s ease-out; }
+        .animate-bounce-gentle { animation: bounce-gentle 2s ease-in-out infinite; }
+        .animate-slide-up { animation: slide-up 0.3s ease-out; }
         
         .animation-delay-200 { animation-delay: 0.2s; }
         .animation-delay-400 { animation-delay: 0.4s; }
