@@ -459,7 +459,7 @@ export default function Home() {
                   }`}>
                     <ReactMarkdown components={{
                       // Override p tag to add the styling classes
-                      p: ({node, ...props}) => <p className="text-sm prose prose-sm dark:prose-invert max-w-none" {...props}/>
+                      p: ({...props}) => <p className="text-sm prose prose-sm dark:prose-invert max-w-none" {...props}/>
                     }}>
                       {message.text}
                     </ReactMarkdown>
