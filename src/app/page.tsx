@@ -486,13 +486,13 @@ export default function Home() {
             {/* Input Area */}
             <div className="p-4 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
               <div className="flex space-x-2">
-                <input
-                  type="text"
+                <textarea
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder="Ketik pesan..."
-                  className="flex-1 bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 border-0"
+                  rows={3}
+                  className="flex-1 bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 border-0 resize-none"
                   disabled={isLoading}
                 />
                 <button
