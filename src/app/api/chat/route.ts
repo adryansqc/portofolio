@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     }
 
     const result = await generateText({
-      model: gemini('gemini-2.0-flash'), // Model Gemini
+      model: gemini('gemini-2.5-flash'), // Model Gemini
       prompt,
     });
 
