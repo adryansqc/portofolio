@@ -411,9 +411,9 @@ export default function Home() {
 
         {/* Chat Window */}
         {isChatOpen && (
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-80 sm:w-96 h-96 flex flex-col overflow-hidden animate-slide-up border border-slate-200 dark:border-slate-700">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-80 sm:w-96 md:w-[500px] lg:w-[600px] h-96 md:h-[600px] lg:h-[700px] flex flex-col overflow-hidden animate-slide-up border border-slate-200 dark:border-slate-700">
             {/* Chat Header */}
-            <div className="bg-gradient-to-r from-blue-500 to-purple-600 px-4 py-3 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-blue-500 to-purple-600 px-4 py-3 md:py-4 flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
                   <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
