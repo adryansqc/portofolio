@@ -60,14 +60,17 @@ export default function About() {
   ];
 
   const technologies = [
-    { name: "Laravel", color: "bg-red-500", icon: "🔥" },
-    { name: "Next.js", color: "bg-black", icon: "⚡" },
-    { name: "React", color: "bg-blue-500", icon: "⚛️" },
-    { name: "Tailwind CSS", color: "bg-cyan-500", icon: "🎨" },
-    { name: "Bootstrap", color: "bg-purple-500", icon: "📱" },
-    { name: "MySQL", color: "bg-orange-500", icon: "🗄️" },
-    { name: "PHP", color: "bg-indigo-500", icon: "🐘" },
-    { name: "Figma", color: "bg-pink-500", icon: "🎯" }
+    { name: "Laravel", color: "bg-red-500"},
+    { name: "Next.js", color: "bg-black"},
+    { name: "React", color: "bg-blue-500"},
+    { name: "Tailwind CSS", color: "bg-cyan-500"},
+    { name: "Bootstrap", color: "bg-purple-500"},
+    { name: "MySQL", color: "bg-orange-500"},
+    { name: "SQLite", color: "bg-orange-500"},
+    { name: "PostgreSQL", color: "bg-orange-500"},
+    { name: "PHP", color: "bg-indigo-500"},
+    { name: "Python", color: "bg-indigo-500"},
+    { name: "Figma", color: "bg-pink-500"}
   ]; 
 
   return (
@@ -225,7 +228,6 @@ export default function About() {
               >
                 <div className="flex items-center gap-3">
                   <div className={`w-3 h-3 ${tech.color} rounded-full animate-pulse`}></div>
-                  <span className="text-2xl">{tech.icon}</span>
                   <span className="font-semibold text-slate-800 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                     {tech.name}
                   </span>
@@ -255,7 +257,7 @@ export default function About() {
                   className="inline-flex items-center gap-2 bg-white text-blue-600 px-8 py-4 rounded-xl font-bold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
                 >
                   <Star className="w-5 h-5" />
-                  Lihat Portfolio
+                  Project Saya
                 </Link>
                 <a
                   href="https://wa.me/+6289667884100"

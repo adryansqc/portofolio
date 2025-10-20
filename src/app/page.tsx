@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
+import { Star} from "lucide-react";
 import ReactMarkdown from 'react-markdown';
 
 export default function Home() {
@@ -229,7 +230,7 @@ export default function Home() {
                 Backend Development
               </h3>
               <p className="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
-                PHP (Framework Laravel), MySQL
+                PHP (Framework Laravel), MySQL, SQLite, PostgreSQL
               </p>
               
               <div className="space-y-2">
@@ -352,18 +353,13 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
               </Link>
 
-              <a
-                href="https://wa.me/+6289667884100"
-                className="group relative border-3 border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white font-bold py-4 px-10 rounded-2xl transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl"
-              >
-                <span className="flex items-center">
-                  <svg className="w-6 h-6 mr-3 transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-300" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                  </svg>
-                  Hubungi Saya
-                </span>
-              </a>
+              <Link
+                  href="/projects"
+                  className="inline-flex items-center gap-2 bg-white text-blue-600 px-8 py-4 rounded-xl font-bold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                >
+                  <Star className="w-5 h-5" />
+                  Project Saya
+              </Link>
             </div>
 
             {/* Social links */}
