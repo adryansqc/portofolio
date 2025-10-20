@@ -125,7 +125,6 @@ export default function ProjectsPage() {
         </button>
       </div>
 
-      {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className={`absolute -top-40 -right-40 w-80 h-80 rounded-full blur-3xl animate-pulse ${
           isDarkMode ? 'bg-purple-500/10' : 'bg-purple-500/5'
