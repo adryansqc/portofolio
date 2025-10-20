@@ -7,7 +7,7 @@ import { useState } from 'react'
 const projects = [
   {
     title: 'Web-News',
-    description: 'A digital news platform focused on business and economic information in Jambi. Built with Laravel and Bootstrap, featuring content management system, news categorization, and article management.',
+    description: 'Sebuah platform berita digital yang berfokus pada informasi bisnis dan ekonomi di Jambi.',
     image: '/jambisnis.png',
     link: 'https://github.com/yourusername/ecommerce',
     demo: 'https://jambisnis.com',
@@ -19,7 +19,7 @@ const projects = [
   },
   {
     title: 'Company Profile Website',
-    description: 'A professional company profile website showcasing business services, company history, team members, and achievements with an elegant and modern design.',
+    description: 'Sebuah website profil perusahaan profesional yang dengan tampilan yang elegan dan modern.',
     image: '/pkpjbc.png', 
     link: 'https://github.com/yourusername/taskmanager',
     demo: 'https://pkpjbc.com',
@@ -31,7 +31,7 @@ const projects = [
   },
   {
     title: 'PPDB Website',
-    description: 'A comprehensive online student admission system for SMA Tri Sukses Boarding School Jambi, featuring digital registration forms, document uploads, and real-time application status tracking.',
+    description: 'Sebuah sistem penerimaan siswa online yang komprehensif untuk SMA Tri Sukses Boarding School Jambi',
     image: '/ppdb.png',
     link: 'https://github.com/yourusername/weather',
     demo: 'https://smappdb.smatrisuksesbsjambi.sch.id/',
@@ -43,7 +43,7 @@ const projects = [
   },
   {
     title: 'Digital Library Platform',
-    description: 'An interactive digital library platform designed to promote reading literacy. Features include book cataloging, reading progress tracking, book reviews and ratings, and a community discussion forum for readers.',
+    description: 'Sebuah platform perpustakaan digital interaktif yang dirancang untuk meningkatkan literasi membaca.',
     image: '/kunangan.png',
     link: 'https://github.com/yourusername/weather',
     demo: 'https://literasikunangan.id',
@@ -52,6 +52,42 @@ const projects = [
     featured: false,
     year: '2023',
     status: 'Live'
+  },
+  {
+    title: 'E-Masjid',
+    description: 'Website e-Masjid dengan fitur pengumuman, jadwal kajian dan jumatan, kas masjid otomatis, zakat, qurban dll.',
+    image: '/masjid.png',
+    link: 'https://github.com/yourusername/weather',
+    demo: '#',
+    tech: ['Laravel', 'Bootstrap', 'Mysql'],
+    category: 'Full Stack',
+    featured: false,
+    year: '2025',
+    status: 'Local'
+  },
+  {
+    title: 'Media Belajar Online',
+    description: 'Website kuis dan pembelajaran untuk sekolah dengan fitur akses materi, pengerjaan kuis dengan hasil otomatis.',
+    image: '/mediapembelajaran.png',
+    link: 'https://github.com/yourusername/weather',
+    demo: '#',
+    tech: ['Laravel', 'Bootstrap', 'Mysql'],
+    category: 'Full Stack',
+    featured: false,
+    year: '2025',
+    status: 'Local'
+  },
+  {
+    title: 'Media Belajar Online',
+    description: 'Sistem penerimaan siswa baru berbasis web dengan fitur pembayaran online via Midtrans, dan notifikasi WA otomatis.',
+    image: '/ppdb_mitrans.png',
+    link: 'https://github.com/yourusername/weather',
+    demo: '#',
+    tech: ['Laravel', 'Bootstrap', 'Mysql'],
+    category: 'Full Stack',
+    featured: false,
+    year: '2025',
+    status: 'Local'
   }
 ]
 
