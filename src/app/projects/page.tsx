@@ -46,7 +46,7 @@ const projects = [
     description: 'Sebuah platform perpustakaan digital interaktif yang dirancang untuk meningkatkan literasi membaca.',
     image: '/kunangan.png',
     link: 'https://github.com/yourusername/weather',
-    demo: 'https://literasikunangan.id',
+    demo: 'https://literasikunangan.web.id',
     tech: ['Laravel', 'Bootstrap', 'Mysql'],
     category: 'Full Stack',
     featured: false,
