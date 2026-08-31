@@ -6,8 +6,8 @@ import { useState } from 'react'
 
 const projects = [
   {
-    title: 'Web-News',
-    description: 'Sebuah platform berita digital yang berfokus pada informasi bisnis dan ekonomi di Jambi.',
+    title: 'Company Profile Website',
+    description: 'Sebuah website profil perusahaan profesional yang dengan tampilan yang elegan dan modern.',
     image: '/jambisnis.png',
     link: 'https://github.com/yourusername/ecommerce',
     demo: 'https://jambisnis.com',
@@ -20,13 +20,13 @@ const projects = [
   {
     title: 'Company Profile Website',
     description: 'Sebuah website profil perusahaan profesional yang dengan tampilan yang elegan dan modern.',
-    image: '/pkpjbc.png', 
+    image: '/psp.png', 
     link: 'https://github.com/yourusername/taskmanager',
-    demo: 'https://pkpjbc.com',
+    demo: 'https://pspjambi.com',
     tech: ['Laravel', 'Bootstrap', 'Tailwind Css', 'Mysql'],
     category: 'Full Stack',
     featured: false,
-    year: '2025',
+    year: '2026',
     status: 'Live'
   },
   {
