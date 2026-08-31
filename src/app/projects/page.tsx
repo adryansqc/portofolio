@@ -6,7 +6,7 @@ import { useState } from 'react'
 
 const projects = [
   {
-    title: 'Company Profile Website',
+    title: 'PSP Jambi',
     description: 'Sebuah website profil perusahaan profesional yang dengan tampilan yang elegan dan modern.',
     image: '/psp.png',
     link: 'https://github.com/yourusername/ecommerce',
@@ -14,11 +14,11 @@ const projects = [
     tech: ['Laravel', 'Bootstrap', 'Tailwind Css', 'Mysql'],
     category: 'Full Stack',
     featured: false,
-    year: '2025',
+    year: '2026',
     status: 'Live'
   },
   {
-    title: 'Company Profile Website',
+    title: 'JBC Jambi',
     description: 'Sebuah website profil perusahaan profesional yang dengan tampilan yang elegan dan modern.',
     image: '/pkpjbc.png', 
     link: 'https://github.com/yourusername/taskmanager',
@@ -30,7 +30,7 @@ const projects = [
     status: 'Live'
   },
   {
-    title: 'PPDB Website',
+    title: 'PPDB SMA Tri Sukses BS Jambi',
     description: 'Sebuah sistem penerimaan siswa online yang komprehensif untuk SMA Tri Sukses Boarding School Jambi',
     image: '/ppdb.png',
     link: 'https://github.com/yourusername/weather',
@@ -42,7 +42,7 @@ const projects = [
     status: 'Live'
   },
   {
-    title: 'Digital Library Platform',
+    title: 'Literasi Kunangan',
     description: 'Sebuah platform perpustakaan digital interaktif yang dirancang untuk meningkatkan literasi membaca.',
     image: '/kunangan.png',
     link: 'https://github.com/yourusername/weather',
