@@ -8,9 +8,9 @@ const projects = [
   {
     title: 'Company Profile Website',
     description: 'Sebuah website profil perusahaan profesional yang dengan tampilan yang elegan dan modern.',
-    image: '/jambisnis.png',
+    image: '/psp.png',
     link: 'https://github.com/yourusername/ecommerce',
-    demo: 'https://jambisnis.com',
+    demo: 'https://pspjambi.com',
     tech: ['Laravel', 'Bootstrap', 'Tailwind Css', 'Mysql'],
     category: 'Full Stack',
     featured: false,
@@ -20,13 +20,13 @@ const projects = [
   {
     title: 'Company Profile Website',
     description: 'Sebuah website profil perusahaan profesional yang dengan tampilan yang elegan dan modern.',
-    image: '/psp.png', 
+    image: '/pkpjbc.png', 
     link: 'https://github.com/yourusername/taskmanager',
-    demo: 'https://pspjambi.com',
+    demo: 'https://pkpjbc.com',
     tech: ['Laravel', 'Bootstrap', 'Tailwind Css', 'Mysql'],
     category: 'Full Stack',
     featured: false,
-    year: '2026',
+    year: '2025',
     status: 'Live'
   },
   {
