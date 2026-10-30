@@ -11,6 +11,7 @@ export const SITE = {
   description:
     "Saya Adryan, membangun web app yang cepat, accessible, dan enak dipakai.",
   available: true,
+  cvUrl: "/cv-adryan.pdf",
 } as const;
 
 // ============================================================
@@ -97,6 +98,15 @@ export const PROJECTS = [
     featured: false,
     year: "2026",
     status: "Live" as const,
+    detail: {
+      problem:
+        "Perusahaan membutuhkan kehadiran digital profesional untuk memperkenalkan layanan ke calon klien dan mitra bisnis.",
+      role: "Full Stack Developer & UI Designer — bertanggung jawab penuh dari desain hingga deployment.",
+      challenge:
+        "Merancang UI yang elegan tanpa framework frontend modern, dengan tetap menjaga performa di hosting shared.",
+      outcome:
+        "Website live dan aktif digunakan sebagai wajah digital perusahaan, meningkatkan kepercayaan calon klien.",
+    },
   },
   {
     slug: "jbc-jambi",
@@ -110,6 +120,15 @@ export const PROJECTS = [
     featured: false,
     year: "2025",
     status: "Live" as const,
+    detail: {
+      problem:
+        "Klien memerlukan website company profile yang menonjolkan kredibilitas dan portofolio layanan.",
+      role: "Full Stack Developer — development, styling, dan deployment.",
+      challenge:
+        "Menyusun struktur konten yang informatif tanpa membuat halaman terasa berat.",
+      outcome:
+        "Website aktif dan menjadi referensi utama klien saat mempresentasikan layanan.",
+    },
   },
   {
     slug: "ppdb-sma-tri-sukses",
@@ -123,6 +142,15 @@ export const PROJECTS = [
     featured: false,
     year: "2024",
     status: "Live" as const,
+    detail: {
+      problem:
+        "Proses PPDB manual memakan waktu dan rawan kesalahan input data calon siswa.",
+      role: "Full Stack Developer — merancang alur pendaftaran, database, dan panel admin.",
+      challenge:
+        "Menyederhanakan alur multi-step pendaftaran agar mudah dipakai oleh orang tua dan siswa baru.",
+      outcome:
+        "Proses pendaftaran menjadi digital, data terpusat, dan panitia bisa memverifikasi lebih cepat.",
+    },
   },
   {
     slug: "literasi-kunangan",
@@ -136,6 +164,15 @@ export const PROJECTS = [
     featured: false,
     year: "2023",
     status: "Live" as const,
+    detail: {
+      problem:
+        "Akses bahan bacaan di daerah terbatas, dan minat baca siswa perlu didorong lewat media yang lebih menarik.",
+      role: "Full Stack Developer — membangun platform, sistem katalog, dan antarmuka baca.",
+      challenge:
+        "Merancang pengalaman membaca yang nyaman di layar kecil dan tetap ringan di koneksi lambat.",
+      outcome:
+        "Platform aktif digunakan, menyediakan koleksi bacaan digital yang mudah diakses siswa.",
+    },
   },
   {
     slug: "e-masjid",
@@ -149,6 +186,15 @@ export const PROJECTS = [
     featured: false,
     year: "2025",
     status: "Local" as const,
+    detail: {
+      problem:
+        "Pengelolaan kas, jadwal, dan pengumuman masjid masih manual dan tersebar di banyak tempat.",
+      role: "Full Stack Developer — merancang modul keuangan, jadwal, dan manajemen konten.",
+      challenge:
+        "Menyatukan banyak modul (kas, zakat, qurban, jadwal) dalam satu dashboard yang tetap sederhana bagi pengurus masjid.",
+      outcome:
+        "Prototype lengkap yang siap dikembangkan lebih lanjut untuk kebutuhan masjid lokal.",
+    },
   },
   {
     slug: "media-belajar-online",
@@ -162,6 +208,15 @@ export const PROJECTS = [
     featured: false,
     year: "2025",
     status: "Local" as const,
+    detail: {
+      problem:
+        "Guru butuh cara cepat membuat dan menilai kuis tanpa harus mengoreksi manual satu per satu.",
+      role: "Full Stack Developer — membangun sistem kuis, penilaian otomatis, dan panel guru.",
+      challenge:
+        "Merancang builder kuis yang fleksibel (pilihan ganda, esai) namun tetap mudah dipakai guru non-teknis.",
+      outcome:
+        "Prototype berjalan dengan penilaian otomatis dan rekap hasil per siswa.",
+    },
   },
   {
     slug: "ppdb-midtrans",
@@ -175,6 +230,15 @@ export const PROJECTS = [
     featured: false,
     year: "2025",
     status: "Local" as const,
+    detail: {
+      problem:
+        "Pembayaran biaya pendaftaran manual merepotkan calon siswa dan admin, serta rawan salah rekonsiliasi.",
+      role: "Full Stack Developer — integrasi payment gateway, webhook, dan notifikasi WhatsApp.",
+      challenge:
+        "Menangani callback Midtrans yang tidak berurutan dan memastikan status pembayaran selalu sinkron.",
+      outcome:
+        "Pembayaran otomatis terverifikasi, admin tidak perlu cek mutasi manual, notifikasi WA terkirim otomatis.",
+    },
   },
 ] as const;
 
@@ -186,6 +250,51 @@ export const PROJECT_CATEGORIES = [
 ] as const;
 
 // ============================================================
+// ABOUT PAGE
+// ============================================================
+export const ABOUT_STACK = [
+  {
+    label: "Frontend",
+    items: ["Next.js", "React", "Tailwind CSS", "Bootstrap"],
+  },
+  {
+    label: "Backend",
+    items: ["Laravel", "PHP", "MySQL", "PostgreSQL"],
+  },
+  {
+    label: "Design",
+    items: ["Figma", "Design System", "Prototyping"],
+  },
+  {
+    label: "Tools",
+    items: ["Git", "VS Code", "Vercel", "Midtrans"],
+  },
+] as const;
+
+export const ABOUT_TIMELINE = [
+  {
+    year: "2023",
+    title: "Mulai belajar web development",
+    desc: "HTML, CSS, JS dasar, dan PHP.",
+  },
+  {
+    year: "2024",
+    title: "Full stack Laravel",
+    desc: "Membangun PPDB sekolah & platform literasi.",
+  },
+  {
+    year: "2025",
+    title: "Ekspansi ke Next.js",
+    desc: "Fokus ke React ecosystem, TypeScript, dan UI/UX.",
+  },
+  {
+    year: "2026",
+    title: "Freelance & kolaborasi",
+    desc: "Mengerjakan project company profile & sistem internal.",
+  },
+] as const;
+
+// ============================================================
 // TYPES
 // ============================================================
 export type NavLink = (typeof NAV_LINKS)[number];
@@ -193,4 +302,5 @@ export type Social = (typeof SOCIALS)[number];
 export type Skill = (typeof SKILLS)[number];
 export type Stat = (typeof STATS)[number];
 export type Project = (typeof PROJECTS)[number];
+export type ProjectDetail = Project["detail"];
 export type ProjectCategory = (typeof PROJECT_CATEGORIES)[number];

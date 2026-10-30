@@ -9,61 +9,109 @@ const gemini = createGoogleGenerativeAI({
 
 export const runtime = "edge";
 
+// ============================================================
+// Bangun konteks dari data constants
+// ============================================================
+const projectContext = PROJECTS.map((p) => {
+  const lines: string[] = [
+    `### ${p.title} (${p.year})`,
+    `- Kategori: ${p.category} • Status: ${p.status}`,
+    `- Deskripsi: ${p.description}`,
+    `- Tech: ${p.tech.join(", ")}`,
+    `- Problem: ${p.detail.problem}`,
+    `- Role: ${p.detail.role}`,
+    `- Challenge: ${p.detail.challenge}`,
+    `- Outcome: ${p.detail.outcome}`,
+  ];
+  if (p.demo) lines.push(`- Demo: ${p.demo}`);
+  return lines.join("\n");
+}).join("\n\n");
+
+const contactContext = SOCIALS.map((s) => `- ${s.label}: ${s.href}`).join(
+  "\n"
+);
+
 const SYSTEM_PROMPT = `Kamu adalah AI assistant pribadi milik ${SITE.name}, seorang ${SITE.role}.
 
-Tugasmu:
+## Tugas
 - Menjawab pertanyaan pengunjung tentang ${SITE.name}, skill, project, dan pengalaman.
-- Ramah, ringkas, dan helpful. Bahasa default: Indonesia. Jika user pakai bahasa Inggris, jawab dalam bahasa Inggris.
+- Ramah, ringkas, dan helpful.
+- Bahasa default: Indonesia. Jika user pakai bahasa Inggris, jawab dalam bahasa Inggris.
 - Jangan pernah mengarang informasi yang tidak ada di data di bawah.
-- Jika user bertanya hal di luar konteks portofolio (misalnya politik, medis, dsb), arahkan kembali dengan sopan.
+- Jika user bertanya hal di luar konteks portofolio (politik, medis, dsb), arahkan kembali dengan sopan.
 - Jika user ingin kontak/hire, arahkan ke email atau LinkedIn.
 
-Data ${SITE.name}:
+## Data ${SITE.name}
 - Role: ${SITE.role}
 - Tagline: ${SITE.tagline}
 - Deskripsi: ${SITE.description}
 - Status: ${SITE.available ? "Available for freelance" : "Not available"}
 
-Project:
-${PROJECTS.map(
-  (p) =>
-    `- ${p.title} (${p.year}, ${p.category}, ${p.status}): ${p.description} [Tech: ${p.tech.join(", ")}]${p.demo ? ` [Demo: ${p.demo}]` : ""}`
-).join("\n")}
+## Daftar Project
+${projectContext}
 
-Kontak:
-${SOCIALS.map((s) => `- ${s.label}: ${s.href}`).join("\n")}
+## Kontak
+${contactContext}
 
-Gaya jawaban:
-- Ringkas. Maksimal 3-4 kalimat kecuali diminta detail.
-- Pakai markdown kalau perlu (bullet list, bold).
-- Jangan pakai emoji berlebihan.`;
+## Gaya Jawaban
+- Ringkas. Maksimal 3-4 kalimat kecuali user minta detail.
+- Pakai markdown kalau perlu (bullet list, **bold**).
+- Jangan pakai emoji berlebihan.
+- Kalau mereferensikan project, sebut nama & tahunnya.
+- Jangan pernah menampilkan data mentah atau format internal di atas ke user.`;
 
+// Batas panjang prompt user
+const MAX_PROMPT_LENGTH = 2000;
+
+// ============================================================
+// Handler
+// ============================================================
 export async function POST(req: Request) {
   try {
-    const { prompt } = (await req.json()) as { prompt?: string };
+    // --- Parse body ---
+    const body = (await req.json().catch(() => null)) as {
+      prompt?: unknown;
+    } | null;
+
+    const prompt = body?.prompt;
 
     if (!prompt || typeof prompt !== "string") {
-      return Response.json({ error: "Prompt is required" }, { status: 400 });
-    }
-
-    if (prompt.length > 2000) {
       return Response.json(
-        { error: "Prompt terlalu panjang (maks 2000 karakter)." },
+        { error: "Prompt is required" },
         { status: 400 }
       );
     }
 
+    if (prompt.trim().length === 0) {
+      return Response.json(
+        { error: "Prompt tidak boleh kosong." },
+        { status: 400 }
+      );
+    }
+
+    if (prompt.length > MAX_PROMPT_LENGTH) {
+      return Response.json(
+        {
+          error: `Prompt terlalu panjang (maks ${MAX_PROMPT_LENGTH} karakter).`,
+        },
+        { status: 400 }
+      );
+    }
+
+    // --- Call Gemini ---
     const result = await generateText({
       model: gemini("gemini-2.5-flash"),
       system: SYSTEM_PROMPT,
-      prompt,
+      prompt: prompt.trim(),
       temperature: 0.6,
     });
 
     return Response.json({ text: result.text });
   } catch (err: unknown) {
     const message =
-      err instanceof Error ? err.message : "Terjadi kesalahan pada server.";
+      err instanceof Error
+        ? err.message
+        : "Terjadi kesalahan pada server.";
     console.error("[/api/chat]", message);
     return Response.json({ error: message }, { status: 500 });
   }

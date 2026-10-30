@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Download } from "lucide-react";
 import { useState } from "react";
 import { NAV_LINKS, SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -49,7 +49,19 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-1">
+          {/* Download CV — desktop only */}
+          <a
+            href={SITE.cvUrl}
+            download="CV-Adryan.pdf"
+            className="hidden items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-sm font-medium transition-colors hover:bg-muted md:inline-flex"
+          >
+            <Download className="h-3.5 w-3.5" />
+            CV
+          </a>
+
           <ThemeToggle />
+
+          {/* Mobile menu button */}
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
@@ -75,6 +87,17 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
+
+            {/* Download CV — mobile (di dalam menu) */}
+            <a
+              href={SITE.cvUrl}
+              download="CV-Adryan.pdf"
+              onClick={() => setOpen(false)}
+              className="mt-1 inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-2 text-sm font-medium text-foreground hover:bg-muted transition-colors"
+            >
+              <Download className="h-3.5 w-3.5" />
+              Download CV
+            </a>
           </nav>
         </div>
       )}

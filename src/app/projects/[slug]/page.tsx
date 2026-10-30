@@ -25,6 +25,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+const DETAIL_LABELS: Record<keyof (typeof PROJECTS)[number]["detail"], string> = {
+  problem: "Problem",
+  role: "Role",
+  challenge: "Challenge",
+  outcome: "Outcome",
+};
+
 export default async function ProjectDetailPage({ params }: Props) {
   const { slug } = await params;
   const project = PROJECTS.find((p) => p.slug === slug);
@@ -83,15 +90,19 @@ export default async function ProjectDetailPage({ params }: Props) {
         />
       </div>
 
-      <div className="mt-10 grid gap-8 md:grid-cols-3">
-        <div className="md:col-span-2 space-y-4 text-muted-foreground leading-relaxed">
-          <h2 className="text-lg font-semibold text-foreground">Overview</h2>
-          <p>{project.description}</p>
-          <p>
-            <em className="text-muted-foreground/70">
-              (Tambahkan detail project: problem, role, tantangan, dan hasil di sini.)
-            </em>
-          </p>
+      <div className="mt-10 grid gap-10 md:grid-cols-3">
+        {/* Overview — dari constants */}
+        <div className="md:col-span-2 space-y-6 text-muted-foreground leading-relaxed">
+          {(Object.keys(DETAIL_LABELS) as Array<keyof typeof DETAIL_LABELS>).map(
+            (key) => (
+              <div key={key}>
+                <h2 className="mb-1.5 text-sm font-mono uppercase tracking-wider text-foreground">
+                  {DETAIL_LABELS[key]}
+                </h2>
+                <p>{project.detail[key]}</p>
+              </div>
+            )
+          )}
         </div>
 
         <aside className="space-y-6">

@@ -1,7 +1,7 @@
 // src/components/sections/hero.tsx
 "use client";
 
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -14,10 +14,7 @@ export function Hero() {
 
   return (
     <section className="relative overflow-hidden">
-      {/* Subtle grid background */}
       <div className="pointer-events-none absolute inset-0 grid-bg opacity-[0.35] dark:opacity-25" />
-
-      {/* Single soft blob */}
       <div className="pointer-events-none absolute -top-40 right-0 h-96 w-96 rounded-full bg-accent/10 blur-3xl animate-blob" />
 
       <Container className="relative pt-20 pb-24 sm:pt-28 sm:pb-32">
@@ -48,15 +45,21 @@ export function Hero() {
           {SITE.description}
         </p>
 
+        {/* CTA — 2 tombol utama */}
         <div className="mt-10 flex flex-wrap items-center gap-3 animate-fade-in-up delay-500">
           <Button href="/projects" size="lg">
             View Work
             <ArrowRight className="h-4 w-4" />
           </Button>
-          <Button href="/about" variant="outline" size="lg">
-            About Me
-            <ArrowUpRight className="h-4 w-4" />
-          </Button>
+
+          <a
+            href={SITE.cvUrl}
+            download="CV-Adryan.pdf"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-border px-6 text-base font-medium transition-colors hover:bg-muted"
+          >
+            <Download className="h-4 w-4" />
+            Download CV
+          </a>
         </div>
 
         <div className="mt-12 flex items-center gap-4 border-t border-border/60 pt-6 animate-fade-in-up delay-500">

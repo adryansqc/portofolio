@@ -5,26 +5,13 @@ import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { SocialLinks } from "@/components/shared/social-links";
+import { ABOUT_STACK, ABOUT_TIMELINE } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "About",
   description:
     "Tentang Adryan — Full Stack Developer & UI/UX Designer yang fokus membangun produk digital yang thoughtful.",
 };
-
-const STACK = [
-  { label: "Frontend", items: ["Next.js", "React", "Tailwind CSS", "Bootstrap"] },
-  { label: "Backend", items: ["Laravel", "PHP", "MySQL", "PostgreSQL"] },
-  { label: "Design", items: ["Figma", "Design System", "Prototyping"] },
-  { label: "Tools", items: ["Git", "VS Code", "Vercel", "Midtrans"] },
-];
-
-const TIMELINE = [
-  { year: "2023", title: "Mulai belajar web development", desc: "HTML, CSS, JS dasar, dan PHP." },
-  { year: "2024", title: "Full stack Laravel", desc: "Membangun PPDB sekolah & platform literasi." },
-  { year: "2025", title: "Ekspansi ke Next.js", desc: "Fokus ke React ecosystem, TypeScript, dan UI/UX." },
-  { year: "2026", title: "Freelance & kolaborasi", desc: "Mengerjakan project company profile & sistem internal." },
-];
 
 export default function AboutPage() {
   return (
@@ -36,7 +23,6 @@ export default function AboutPage() {
       </h1>
 
       <div className="mt-10 grid gap-12 md:grid-cols-3">
-        {/* Main */}
         <div className="md:col-span-2 space-y-5 text-muted-foreground leading-relaxed animate-fade-in-up delay-100">
           <p>
             Saya seorang{" "}
@@ -66,7 +52,6 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Side */}
         <aside className="space-y-6 animate-fade-in-up delay-200">
           <div className="rounded-2xl border border-border p-5">
             <p className="mb-3 font-mono text-xs uppercase tracking-wider text-muted-foreground">
@@ -89,7 +74,6 @@ export default function AboutPage() {
         </aside>
       </div>
 
-      {/* Stack */}
       <section className="mt-20 animate-fade-in-up delay-300">
         <h2 className="text-2xl font-semibold tracking-tight">Tech Stack</h2>
         <p className="mt-2 text-muted-foreground">
@@ -97,7 +81,7 @@ export default function AboutPage() {
         </p>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {STACK.map((group) => (
+          {ABOUT_STACK.map((group) => (
             <div
               key={group.label}
               className="rounded-2xl border border-border p-5 transition-colors hover:border-foreground/20"
@@ -117,7 +101,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Timeline */}
       <section className="mt-20 animate-fade-in-up delay-500">
         <h2 className="text-2xl font-semibold tracking-tight">Journey</h2>
         <p className="mt-2 text-muted-foreground">
@@ -125,12 +108,16 @@ export default function AboutPage() {
         </p>
 
         <ol className="mt-8 space-y-6 border-l border-border pl-6">
-          {TIMELINE.map((item) => (
+          {ABOUT_TIMELINE.map((item) => (
             <li key={item.year} className="relative">
               <span className="absolute -left-[31px] top-1.5 h-3 w-3 rounded-full border-2 border-background bg-foreground" />
-              <p className="font-mono text-xs text-muted-foreground">{item.year}</p>
+              <p className="font-mono text-xs text-muted-foreground">
+                {item.year}
+              </p>
               <p className="mt-1 font-medium">{item.title}</p>
-              <p className="mt-0.5 text-sm text-muted-foreground">{item.desc}</p>
+              <p className="mt-0.5 text-sm text-muted-foreground">
+                {item.desc}
+              </p>
             </li>
           ))}
         </ol>
