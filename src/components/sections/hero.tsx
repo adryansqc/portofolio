@@ -1,7 +1,6 @@
 // src/components/sections/hero.tsx
 "use client";
 
-import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
