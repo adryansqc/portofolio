@@ -5,7 +5,7 @@
 // ============================================================
 export const SITE = {
   name: "Adryan",
-  domain: "adryan.dev",
+  domain: "Adryan",
   role: "Full Stack Developer",
   tagline: "building thoughtful digital products.",
   description:
@@ -250,7 +250,7 @@ export const PROJECTS = [
     tech: ["Flutter", "Dart", "Laravel", "MySQL"],
     category: "Mobile",
     featured: false,
-    year: "2025",
+    year: "2026",
     status: "Local" as const,
     detail: {
       problem:
@@ -272,7 +272,7 @@ export const PROJECTS = [
     tech: ["Flutter", "Dart", "Laravel", "MySQL"],
     category: "Mobile",
     featured: false,
-    year: "2025",
+    year: "2026",
     status: "Local" as const,
     detail: {
       problem:

@@ -7,10 +7,12 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { SocialLinks } from "@/components/shared/social-links";
 import { useTypingEffect } from "@/hooks/use-typing-effect";
+import { useDict } from "@/components/shared/locale-provider";
 import { SITE, TYPING_TEXTS } from "@/lib/constants";
 
 export function Hero() {
   const typing = useTypingEffect(TYPING_TEXTS);
+  const dict = useDict();
 
   return (
     <section className="relative overflow-hidden">
@@ -25,15 +27,15 @@ export function Hero() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
               </span>
-              Available for freelance
+              {dict.common.available}
             </Badge>
           </div>
         )}
 
         <h1 className="mt-6 max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl animate-fade-in-up delay-100">
-          {SITE.role.toLowerCase()},
+          {dict.hero.greeting}
           <br />
-          <span className="text-muted-foreground">{SITE.tagline}</span>
+          <span className="text-muted-foreground">{dict.hero.tagline}</span>
         </h1>
 
         <p className="mt-4 font-mono text-sm text-muted-foreground animate-fade-in-up delay-200">
@@ -45,10 +47,9 @@ export function Hero() {
           {SITE.description}
         </p>
 
-        {/* CTA — 2 tombol utama */}
         <div className="mt-10 flex flex-wrap items-center gap-3 animate-fade-in-up delay-500">
           <Button href="/projects" size="lg">
-            View Work
+            {dict.common.viewWork}
             <ArrowRight className="h-4 w-4" />
           </Button>
 
@@ -58,13 +59,13 @@ export function Hero() {
             className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-border px-6 text-base font-medium transition-colors hover:bg-muted"
           >
             <Download className="h-4 w-4" />
-            Download CV
+            {dict.common.downloadCv}
           </a>
         </div>
 
         <div className="mt-12 flex items-center gap-4 border-t border-border/60 pt-6 animate-fade-in-up delay-500">
           <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground">
-            Find me
+            {dict.common.findMe}
           </p>
           <SocialLinks />
         </div>

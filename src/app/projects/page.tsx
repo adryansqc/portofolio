@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ArrowUpRight, ExternalLink, Sparkles } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
+import { useDict } from "@/components/shared/locale-provider";
 import {
   PROJECTS,
   PROJECT_CATEGORIES,
@@ -16,6 +17,7 @@ import { cn } from "@/lib/utils";
 
 export default function ProjectsPage() {
   const [filter, setFilter] = useState<ProjectCategory>("All");
+  const dict = useDict();
 
   const filtered = useMemo(
     () =>
@@ -27,23 +29,19 @@ export default function ProjectsPage() {
 
   return (
     <Container className="py-16 sm:py-24">
-      {/* Header */}
       <div className="max-w-2xl animate-fade-in-up">
         <Badge>
           <Sparkles className="h-3 w-3" />
-          Portfolio Showcase
+          {dict.sections.projectsEyebrow}
         </Badge>
         <h1 className="mt-6 text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
-          Selected projects
+          {dict.sections.projectsTitle}
         </h1>
         <p className="mt-4 text-muted-foreground leading-relaxed">
-          Kumpulan project yang saya bangun dari nol — mulai dari riset,
-          desain, sampai implementasi. Setiap project punya cerita dan
-          tantangannya sendiri.
+          {dict.sections.projectsDesc}
         </p>
       </div>
 
-      {/* Filter */}
       <div className="mt-10 flex flex-wrap gap-2 animate-fade-in-up delay-100">
         {PROJECT_CATEGORIES.map((cat) => (
           <button
@@ -56,12 +54,11 @@ export default function ProjectsPage() {
                 : "border-border text-muted-foreground hover:border-foreground/30 hover:text-foreground"
             )}
           >
-            {cat}
+            {cat === "All" ? dict.sections.filterAll : cat}
           </button>
         ))}
       </div>
 
-      {/* Grid */}
       <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((project, i) => (
           <article
@@ -69,7 +66,6 @@ export default function ProjectsPage() {
             className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-background transition-all hover:border-foreground/20 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/40 animate-fade-in-up"
             style={{ animationDelay: `${Math.min(i * 80, 400)}ms` }}
           >
-            {/* Image */}
             <div className="relative aspect-[16/10] overflow-hidden bg-muted">
               <Image
                 src={project.image}
@@ -80,7 +76,6 @@ export default function ProjectsPage() {
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-60" />
 
-              {/* Status */}
               <div className="absolute top-3 left-3">
                 <span
                   className={cn(
@@ -102,14 +97,12 @@ export default function ProjectsPage() {
                 </span>
               </div>
 
-              {/* Year */}
               <div className="absolute top-3 right-3">
                 <span className="rounded-full bg-black/40 px-2.5 py-1 font-mono text-xs text-white backdrop-blur-md">
                   {project.year}
                 </span>
               </div>
 
-              {/* Hover action */}
               {project.demo && (
                 <a
                   href={project.demo}
@@ -123,7 +116,6 @@ export default function ProjectsPage() {
               )}
             </div>
 
-            {/* Content */}
             <div className="flex flex-1 flex-col p-5">
               <div className="flex items-start justify-between gap-3">
                 <h2 className="text-base font-semibold tracking-tight">
@@ -158,18 +150,18 @@ export default function ProjectsPage() {
                     className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground transition-colors hover:text-foreground/70"
                   >
                     <ExternalLink className="h-3.5 w-3.5" />
-                    View Live
+                    {dict.common.viewLive}
                   </a>
                 ) : (
                   <span className="text-xs text-muted-foreground">
-                    Local project
+                    {dict.common.localProject}
                   </span>
                 )}
                 <Link
                   href={`/projects/${project.slug}`}
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  Details →
+                  {dict.common.details} →
                 </Link>
               </div>
             </div>
@@ -177,22 +169,20 @@ export default function ProjectsPage() {
         ))}
       </div>
 
-      {/* Empty state */}
       {filtered.length === 0 && (
         <div className="mt-16 rounded-2xl border border-dashed border-border p-12 text-center">
           <p className="text-muted-foreground">
-            Belum ada project di kategori ini.
+            {dict.sections.emptyCategory}
           </p>
         </div>
       )}
 
-      {/* CTA */}
       <div className="mt-20 rounded-3xl border border-border bg-gradient-to-b from-muted/40 to-background p-8 text-center sm:p-12">
         <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-          Lihat lebih banyak di GitHub
+          {dict.sections.moreOnGithub}
         </h2>
         <p className="mx-auto mt-3 max-w-md text-muted-foreground">
-          Masih banyak eksperimen & project lain yang saya simpan di GitHub.
+          {dict.sections.moreOnGithubDesc}
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <a
@@ -202,13 +192,13 @@ export default function ProjectsPage() {
             className="inline-flex h-11 items-center gap-2 rounded-lg bg-foreground px-6 text-sm font-medium text-background transition-opacity hover:opacity-90"
           >
             <ExternalLink className="h-4 w-4" />
-            Buka GitHub
+            {dict.common.openGithub}
           </a>
           <Link
             href="/"
             className="inline-flex h-11 items-center gap-2 rounded-lg border border-border px-6 text-sm font-medium transition-colors hover:bg-muted"
           >
-            ← Kembali ke Home
+            ← {dict.common.backToHome}
           </Link>
         </div>
       </div>

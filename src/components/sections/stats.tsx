@@ -4,6 +4,7 @@
 import { Container } from "@/components/layout/container";
 import { STATS } from "@/lib/constants";
 import { useCountUp } from "@/hooks/use-count-up";
+import { useDict } from "@/components/shared/locale-provider";
 
 function StatItem({
   value,
@@ -30,17 +31,25 @@ function StatItem({
 }
 
 export function Stats() {
+  const dict = useDict();
+  const labels = [
+    dict.sections.statProjects,
+    dict.sections.statExperience,
+    dict.sections.statClients,
+    dict.sections.statDedication,
+  ];
+
   return (
     <section>
       <Container>
         <div className="rounded-2xl border border-border bg-muted/30 px-6 py-10">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-            {STATS.map((s) => (
+            {STATS.map((s, i) => (
               <StatItem
                 key={s.label}
                 value={s.value}
                 suffix={s.suffix}
-                label={s.label}
+                label={labels[i] ?? s.label}
               />
             ))}
           </div>

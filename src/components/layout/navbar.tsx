@@ -8,15 +8,17 @@ import { useState } from "react";
 import { NAV_LINKS, SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
+import { LocaleToggle } from "@/components/shared/locale-toggle";
+import { useDict } from "@/components/shared/locale-provider";
 
 export function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const dict = useDict();
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/70 backdrop-blur-md">
       <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between px-6">
-        {/* Logo */}
         <Link
           href="/"
           className="text-sm font-semibold tracking-tight hover:opacity-80 transition-opacity"
@@ -24,7 +26,6 @@ export function Navbar() {
           {SITE.domain}
         </Link>
 
-        {/* Desktop nav */}
         <nav className="hidden items-center gap-1 md:flex">
           {NAV_LINKS.map((link) => {
             const active =
@@ -42,26 +43,27 @@ export function Navbar() {
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >
-                {link.label}
+                {dict.nav[link.label.toLowerCase() as keyof typeof dict.nav] ??
+                  link.label}
               </Link>
             );
           })}
         </nav>
 
         <div className="flex items-center gap-1">
-          {/* Download CV — desktop only */}
+          <LocaleToggle />
+
           <a
             href={SITE.cvUrl}
             download="CV-Adryan.pdf"
             className="hidden items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-sm font-medium transition-colors hover:bg-muted md:inline-flex"
           >
             <Download className="h-3.5 w-3.5" />
-            CV
+            {dict.nav.cv}
           </a>
 
           <ThemeToggle />
 
-          {/* Mobile menu button */}
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
@@ -73,7 +75,6 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu */}
       {open && (
         <div className="border-t border-border/60 md:hidden animate-fade-in">
           <nav className="mx-auto flex max-w-5xl flex-col gap-1 px-6 py-3">
@@ -84,11 +85,11 @@ export function Navbar() {
                 onClick={() => setOpen(false)}
                 className="rounded-md px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
               >
-                {link.label}
+                {dict.nav[link.label.toLowerCase() as keyof typeof dict.nav] ??
+                  link.label}
               </Link>
             ))}
 
-            {/* Download CV — mobile (di dalam menu) */}
             <a
               href={SITE.cvUrl}
               download="CV-Adryan.pdf"
@@ -96,7 +97,7 @@ export function Navbar() {
               className="mt-1 inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-2 text-sm font-medium text-foreground hover:bg-muted transition-colors"
             >
               <Download className="h-3.5 w-3.5" />
-              Download CV
+              {dict.common.downloadCv}
             </a>
           </nav>
         </div>

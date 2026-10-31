@@ -25,12 +25,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-const DETAIL_LABELS: Record<keyof (typeof PROJECTS)[number]["detail"], string> = {
-  problem: "Problem",
-  role: "Role",
-  challenge: "Challenge",
-  outcome: "Outcome",
-};
+const DETAIL_LABELS = {
+  problem: { id: "Masalah", en: "Problem" },
+  role: { id: "Peran", en: "Role" },
+  challenge: { id: "Tantangan", en: "Challenge" },
+  outcome: { id: "Hasil", en: "Outcome" },
+} as const;
 
 export default async function ProjectDetailPage({ params }: Props) {
   const { slug } = await params;
@@ -91,18 +91,17 @@ export default async function ProjectDetailPage({ params }: Props) {
       </div>
 
       <div className="mt-10 grid gap-10 md:grid-cols-3">
-        {/* Overview — dari constants */}
         <div className="md:col-span-2 space-y-6 text-muted-foreground leading-relaxed">
-          {(Object.keys(DETAIL_LABELS) as Array<keyof typeof DETAIL_LABELS>).map(
-            (key) => (
-              <div key={key}>
-                <h2 className="mb-1.5 text-sm font-mono uppercase tracking-wider text-foreground">
-                  {DETAIL_LABELS[key]}
-                </h2>
-                <p>{project.detail[key]}</p>
-              </div>
-            )
-          )}
+          {(
+            Object.keys(DETAIL_LABELS) as Array<keyof typeof DETAIL_LABELS>
+          ).map((key) => (
+            <div key={key}>
+              <h2 className="mb-1.5 text-sm font-mono uppercase tracking-wider text-foreground">
+                {DETAIL_LABELS[key].id}
+              </h2>
+              <p>{project.detail[key]}</p>
+            </div>
+          ))}
         </div>
 
         <aside className="space-y-6">

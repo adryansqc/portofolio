@@ -5,15 +5,18 @@ import { useEffect, useRef, useState } from "react";
 import { MessageCircle, X, Send } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { cn } from "@/lib/utils";
+import { useLocale } from "@/components/shared/locale-provider";
 
 type Message = { text: string; isUser: boolean };
 
 export function ChatWidget() {
+  const { dict, locale } = useLocale();
   const [open, setOpen] = useState(false);
   const [prompt, setPrompt] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
+  
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -30,7 +33,7 @@ export function ChatWidget() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: text }),
+        body: JSON.stringify({ prompt: text, locale }),
       });
       const data = await res.json();
       setMessages((m) => [
@@ -43,7 +46,7 @@ export function ChatWidget() {
     } catch {
       setMessages((m) => [
         ...m,
-        { text: "Maaf, terjadi kesalahan. Coba lagi nanti.", isUser: false },
+        { text: dict.chat.error, isUser: false },
       ]);
     } finally {
       setLoading(false);
@@ -75,17 +78,16 @@ export function ChatWidget() {
 
       {open && (
         <div className="flex h-[min(80vh,600px)] w-[min(calc(100vw-2.5rem),400px)] flex-col overflow-hidden rounded-2xl border border-border bg-background shadow-2xl animate-slide-up">
-          {/* Header */}
           <div className="flex items-center justify-between border-b border-border px-4 py-3">
             <div className="flex items-center gap-2.5">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted">
                 <MessageCircle className="h-4 w-4" />
               </div>
               <div>
-                <p className="text-sm font-medium">AI Assistant</p>
+                <p className="text-sm font-medium">{dict.chat.title}</p>
                 <p className="flex items-center gap-1 text-xs text-muted-foreground">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                  Online
+                  {dict.chat.online}
                 </p>
               </div>
             </div>
@@ -98,12 +100,11 @@ export function ChatWidget() {
             </button>
           </div>
 
-          {/* Messages */}
           <div className="flex-1 space-y-3 overflow-y-auto bg-muted/30 p-4">
             {messages.length === 0 && (
               <div className="flex justify-start">
                 <div className="max-w-[85%] rounded-2xl rounded-bl-md border border-border bg-background px-3.5 py-2.5 text-sm">
-                  Halo! 👋 Saya AI Assistant Adryan. Ada yang bisa saya bantu?
+                  {dict.chat.welcome}
                 </div>
               </div>
             )}
@@ -111,7 +112,10 @@ export function ChatWidget() {
             {messages.map((msg, i) => (
               <div
                 key={i}
-                className={cn("flex", msg.isUser ? "justify-end" : "justify-start")}
+                className={cn(
+                  "flex",
+                  msg.isUser ? "justify-end" : "justify-start"
+                )}
               >
                 <div
                   className={cn(
@@ -166,14 +170,13 @@ export function ChatWidget() {
             <div ref={endRef} />
           </div>
 
-          {/* Input */}
           <div className="border-t border-border bg-background p-3">
             <div className="flex items-end gap-2">
               <textarea
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 onKeyDown={handleKey}
-                placeholder="Ketik pesan..."
+                placeholder={dict.chat.placeholder}
                 rows={1}
                 disabled={loading}
                 className="flex-1 resize-none rounded-xl border border-border bg-muted/30 px-3 py-2 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-foreground/30 max-h-32"

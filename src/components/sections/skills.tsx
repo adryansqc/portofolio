@@ -1,7 +1,10 @@
 // src/components/sections/skills.tsx
+"use client";
+
 import { Layout, Server, Palette } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { useDict } from "@/components/shared/locale-provider";
 import { SKILLS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -14,10 +17,15 @@ const ACCENT: Record<string, string> = {
 };
 
 export function Skills() {
+  const dict = useDict();
+
   return (
     <section id="skills">
       <Container className="py-16 sm:py-20">
-        <SectionHeading eyebrow="Capabilities" title="Keahlian Utama" />
+        <SectionHeading
+          eyebrow={dict.sections.skillsEyebrow}
+          title={dict.sections.skillsTitle}
+        />
 
         <div className="grid gap-4 md:grid-cols-3">
           {SKILLS.map((skill) => {

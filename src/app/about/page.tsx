@@ -1,73 +1,64 @@
 // src/app/about/page.tsx
-import type { Metadata } from "next";
-import { ArrowUpRight } from "lucide-react";
+"use client";
+
+import { ArrowUpRight, Download } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { SocialLinks } from "@/components/shared/social-links";
-import { ABOUT_STACK, ABOUT_TIMELINE } from "@/lib/constants";
-
-export const metadata: Metadata = {
-  title: "About",
-  description:
-    "Tentang Adryan — Full Stack Developer & UI/UX Designer yang fokus membangun produk digital yang thoughtful.",
-};
+import { useDict } from "@/components/shared/locale-provider";
+import { ABOUT_STACK, ABOUT_TIMELINE, SITE } from "@/lib/constants";
 
 export default function AboutPage() {
+  const dict = useDict();
+
   return (
     <Container className="py-16 sm:py-24">
-      <Badge>About</Badge>
+      <Badge>{dict.about.badge}</Badge>
 
       <h1 className="mt-6 max-w-3xl text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl animate-fade-in-up">
-        Halo, saya Adryan — developer yang peduli pada detail & pengalaman pengguna.
+        {dict.about.heading}
       </h1>
 
       <div className="mt-10 grid gap-12 md:grid-cols-3">
         <div className="md:col-span-2 space-y-5 text-muted-foreground leading-relaxed animate-fade-in-up delay-100">
-          <p>
-            Saya seorang{" "}
-            <span className="font-medium text-foreground">Full Stack Developer</span>{" "}
-            dengan pengalaman membangun aplikasi web end-to-end — mulai dari desain
-            UI/UX di Figma, implementasi frontend dengan Next.js & React, sampai
-            backend dengan Laravel dan database relasional.
-          </p>
-          <p>
-            Saya percaya produk digital yang baik bukan hanya soal fitur, tetapi juga
-            soal{" "}
-            <span className="font-medium text-foreground">
-              kejelasan, kecepatan, dan aksesibilitas
-            </span>
-            . Setiap baris kode dan setiap piksel harus punya alasan.
-          </p>
-          <p>
-            Di luar coding, saya suka mengeksplorasi design system, membaca blog
-            teknologi, dan bereksperimen dengan animasi web yang halus.
-          </p>
+          <p>{dict.about.p1}</p>
+          <p>{dict.about.p2}</p>
+          <p>{dict.about.p3}</p>
 
-          <div className="pt-2">
+          <div className="flex flex-wrap gap-3 pt-2">
             <Button href="/projects" variant="outline">
-              Lihat project saya
+              {dict.about.seeProjects}
               <ArrowUpRight className="h-4 w-4" />
             </Button>
+
+            <a
+              href={SITE.cvUrl}
+              download="CV-Adryan.pdf"
+              className="inline-flex h-10 items-center gap-2 rounded-lg border border-border px-4 text-sm font-medium transition-colors hover:bg-muted"
+            >
+              <Download className="h-4 w-4" />
+              {dict.about.downloadCv}
+            </a>
           </div>
         </div>
 
         <aside className="space-y-6 animate-fade-in-up delay-200">
           <div className="rounded-2xl border border-border p-5">
             <p className="mb-3 font-mono text-xs uppercase tracking-wider text-muted-foreground">
-              Fokus
+              {dict.about.focusTitle}
             </p>
             <ul className="space-y-2 text-sm">
-              <li>• Frontend Architecture</li>
-              <li>• Design Systems</li>
-              <li>• Performance & Accessibility</li>
-              <li>• Product Thinking</li>
+              <li>• {dict.about.focus1}</li>
+              <li>• {dict.about.focus2}</li>
+              <li>• {dict.about.focus3}</li>
+              <li>• {dict.about.focus4}</li>
             </ul>
           </div>
 
           <div className="rounded-2xl border border-border p-5">
             <p className="mb-3 font-mono text-xs uppercase tracking-wider text-muted-foreground">
-              Connect
+              {dict.about.connectTitle}
             </p>
             <SocialLinks className="-ml-1" />
           </div>
@@ -75,9 +66,11 @@ export default function AboutPage() {
       </div>
 
       <section className="mt-20 animate-fade-in-up delay-300">
-        <h2 className="text-2xl font-semibold tracking-tight">Tech Stack</h2>
+        <h2 className="text-2xl font-semibold tracking-tight">
+          {dict.about.techStackTitle}
+        </h2>
         <p className="mt-2 text-muted-foreground">
-          Tools & teknologi yang saya pakai sehari-hari.
+          {dict.about.techStackDesc}
         </p>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -102,9 +95,11 @@ export default function AboutPage() {
       </section>
 
       <section className="mt-20 animate-fade-in-up delay-500">
-        <h2 className="text-2xl font-semibold tracking-tight">Journey</h2>
+        <h2 className="text-2xl font-semibold tracking-tight">
+          {dict.about.journeyTitle}
+        </h2>
         <p className="mt-2 text-muted-foreground">
-          Perjalanan singkat saya di dunia web development.
+          {dict.about.journeyDesc}
         </p>
 
         <ol className="mt-8 space-y-6 border-l border-border pl-6">

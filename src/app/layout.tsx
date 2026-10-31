@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { geistSans, geistMono } from "@/lib/fonts";
 import { ThemeProvider } from "@/components/shared/theme-provider";
+import { LocaleProvider } from "@/components/shared/locale-provider";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { ChatWidget } from "@/components/chat/chat-widget";
@@ -24,8 +25,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Adryan" }],
   openGraph: {
     title: "Adryan — Full Stack Developer",
-    description:
-      "Portfolio Adryan, Full Stack Developer & UI/UX Designer.",
+    description: "Portfolio Adryan, Full Stack Developer & UI/UX Designer.",
     type: "website",
   },
 };
@@ -38,7 +38,6 @@ export default function RootLayout({
   return (
     <html lang="id" suppressHydrationWarning>
       <head>
-        {/* Prevent flash of wrong theme */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -55,12 +54,14 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}>
         <ThemeProvider>
-          <div className="flex min-h-screen flex-col">
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
-          <ChatWidget />
+          <LocaleProvider>
+            <div className="flex min-h-screen flex-col">
+              <Navbar />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </div>
+            <ChatWidget />
+          </LocaleProvider>
         </ThemeProvider>
       </body>
     </html>
