@@ -33,7 +33,7 @@ export const SOCIALS = [
     label: "LinkedIn",
     icon: "linkedin",
   },
-  { href: "mailto:hello@adryan.dev", label: "Email", icon: "mail" },
+  { href: "mailto:adryandaywalker15@gmail.com", label: "Email", icon: "mail" },
 ] as const;
 
 // ============================================================
@@ -240,6 +240,50 @@ export const PROJECTS = [
         "Pembayaran otomatis terverifikasi, admin tidak perlu cek mutasi manual, notifikasi WA terkirim otomatis.",
     },
   },
+  {
+    slug: "seraso-mobile",
+    title: "SERASO — Sistem Elektronik Rujukan Sosial Online",
+    description:
+      "Aplikasi mobile Sistem Elektronik Rujukan Sosial Online (SERASO) Kabupaten Sarolangun untuk pendataan dan rujukan layanan sosial secara digital.",
+    image: "/seraso-mobile.jpeg",
+    demo: null,
+    tech: ["Flutter", "Dart", "Laravel", "MySQL"],
+    category: "Mobile",
+    featured: false,
+    year: "2025",
+    status: "Local" as const,
+    detail: {
+      problem:
+        "Proses rujukan dan pendataan layanan sosial di Kabupaten Sarolangun masih dilakukan manual, sehingga data lambat terpusat dan rawan duplikasi antar instansi.",
+      role: "Mobile & Full Stack Developer — membangun aplikasi Flutter dan backend API untuk pendataan rujukan sosial.",
+      challenge:
+        "Merancang alur rujukan multi-instansi yang sederhana di mobile, dengan sinkronisasi data dan status rujukan yang konsisten.",
+      outcome:
+        "Aplikasi mobile SERASO memudahkan petugas lapangan mendata dan merujuk penerima layanan sosial secara real-time, dengan data terpusat di Kabupaten Sarolangun.",
+    },
+  },
+  {
+    slug: "jdih-mobile",
+    title: "JDIH DPRD Sarolangun",
+    description:
+      "Aplikasi mobile Jaringan Dokumentasi dan Informasi Hukum (JDIH) DPRD Kabupaten Sarolangun untuk akses produk hukum daerah secara cepat dan rapi.",
+    image: "/jdih-mobile.jpeg",
+    demo: null,
+    tech: ["Flutter", "Dart", "Laravel", "MySQL"],
+    category: "Mobile",
+    featured: false,
+    year: "2025",
+    status: "Local" as const,
+    detail: {
+      problem:
+        "Masyarakat dan anggota dewan kesulitan mengakses produk hukum daerah DPRD Sarolangun karena dokumen tersebar dan tidak terindeks dengan baik.",
+      role: "Mobile & Full Stack Developer — membangun aplikasi Flutter dan API untuk pengelolaan produk hukum daerah.",
+      challenge:
+        "Menyusun katalog produk hukum (Perda, Perbup, dll.) dengan pencarian cepat dan tampilan PDF yang nyaman di layar kecil.",
+      outcome:
+        "Aplikasi JDIH memudahkan pengguna mencari, membaca, dan menyimpan produk hukum DPRD Sarolangun langsung dari ponsel.",
+    },
+  },
 ] as const;
 
 export const PROJECT_CATEGORIES = [
@@ -247,6 +291,7 @@ export const PROJECT_CATEGORIES = [
   "Full Stack",
   "Frontend",
   "Backend",
+  "Mobile",
 ] as const;
 
 // ============================================================
@@ -260,6 +305,10 @@ export const ABOUT_STACK = [
   {
     label: "Backend",
     items: ["Laravel", "PHP", "MySQL", "PostgreSQL"],
+  },
+  {
+    label: "Mobile",
+    items: ["Flutter", "Dart", "Firebase"],
   },
   {
     label: "Design",
@@ -284,8 +333,8 @@ export const ABOUT_TIMELINE = [
   },
   {
     year: "2025",
-    title: "Ekspansi ke Next.js",
-    desc: "Fokus ke React ecosystem, TypeScript, dan UI/UX.",
+    title: "Ekspansi ke Next.js & Flutter",
+    desc: "Fokus ke React ecosystem, TypeScript, dan mobile development.",
   },
   {
     year: "2026",
