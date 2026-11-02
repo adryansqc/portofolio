@@ -61,7 +61,9 @@ export default function QrGeneratorPage() {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="mb-1.5 block text-sm font-medium">Warna QR</label>
+              <label className="mb-1.5 block text-sm font-medium">
+                Warna QR
+              </label>
               <input
                 type="color"
                 value={fgColor}
@@ -70,7 +72,9 @@ export default function QrGeneratorPage() {
               />
             </div>
             <div>
-              <label className="mb-1.5 block text-sm font-medium">Warna Latar</label>
+              <label className="mb-1.5 block text-sm font-medium">
+                Warna Latar
+              </label>
               <input
                 type="color"
                 value={bgColor}
@@ -96,23 +100,32 @@ export default function QrGeneratorPage() {
           </div>
         </div>
 
-        {/* Panel Preview */}
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-border bg-muted/30 p-8">
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-border bg-muted/30 p-4 sm:p-8">
           <div
-            ref={qrRef}
-            className="rounded-xl bg-white p-4 shadow-sm"
+            className="flex w-full max-w-[320px] items-center justify-center overflow-hidden rounded-xl bg-white p-3 shadow-sm sm:max-w-[400px] sm:p-4"
             style={{ backgroundColor: bgColor }}
           >
-            <QRCodeCanvas
-              value={value || " "}
-              size={size}
-              fgColor={fgColor}
-              bgColor={bgColor}
-              level="M" // Error correction level: L, M, Q, H
-              marginSize={2}
-            />
+            <div
+              ref={qrRef}
+              className="w-full"
+              style={{ aspectRatio: "1 / 1" }}
+            >
+              <QRCodeCanvas
+                value={value || " "}
+                size={size}
+                fgColor={fgColor}
+                bgColor={bgColor}
+                level="M"
+                marginSize={2}
+                style={{ width: "100%", height: "100%" }}
+              />
+            </div>
           </div>
-          <Button onClick={handleDownload} className="mt-6 w-full">
+
+          <Button
+            onClick={handleDownload}
+            className="mt-6 w-full max-w-[320px] sm:max-w-[400px]"
+          >
             <Download className="h-4 w-4" />
             Unduh PNG
           </Button>
