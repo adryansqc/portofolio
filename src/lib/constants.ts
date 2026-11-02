@@ -23,6 +23,22 @@ export const NAV_LINKS = [
   { href: "/projects", label: "Work" },
 ] as const;
 
+export const TOOLS = [
+  {
+    href: "/tools/image-tools",
+    label: "Image Tools",
+    description: "Kompres, ubah format, atau konversi gambar ke PDF.",
+    icon: "image" as const,
+  },
+  // Tambah tools lain di sini nanti, contoh:
+  // {
+  //   href: "/tools/json-formatter",
+  //   label: "JSON Formatter",
+  //   description: "Format & validasi JSON dengan cepat.",
+  //   icon: "code" as const,
+  // },
+] as const;
+
 // ============================================================
 // SOCIALS
 // ============================================================

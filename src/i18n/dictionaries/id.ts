@@ -1,9 +1,10 @@
 // src/i18n/dictionaries/id.ts
 export const id = {
   nav: {
-    home: "Home",
-    about: "About",
-    work: "Work",
+    home: "Beranda",
+    about: "Tentang Saya",
+    work: "Projek yang dibangun",
+    tools: "Fitur", 
     cv: "CV",
     downloadCv: "Download CV",
   },

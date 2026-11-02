@@ -6,6 +6,7 @@ export const en: Dictionary = {
     home: "Home",
     about: "About",
     work: "Work",
+    tools: "Tools", 
     cv: "CV",
     downloadCv: "Download CV",
   },
