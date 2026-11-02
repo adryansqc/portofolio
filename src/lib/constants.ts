@@ -30,13 +30,12 @@ export const TOOLS = [
     description: "Kompres, ubah format, atau konversi gambar ke PDF.",
     icon: "image" as const,
   },
-  // Tambah tools lain di sini nanti, contoh:
-  // {
-  //   href: "/tools/json-formatter",
-  //   label: "JSON Formatter",
-  //   description: "Format & validasi JSON dengan cepat.",
-  //   icon: "code" as const,
-  // },
+   {
+    href: "/tools/qr-generator",
+    label: "QR Generator",
+    description: "Buat QR Code kustom dengan warna dan unduh sebagai PNG.",
+    icon: "qr" as const, // pastikan icon ini ada di tools-dropdown
+  },
 ] as const;
 
 // ============================================================

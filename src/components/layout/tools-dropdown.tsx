@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Image as ImageIcon, Code } from "lucide-react";
+import { ChevronDown, Image as ImageIcon, Code, QrCode } from "lucide-react";
 import { TOOLS } from "@/lib/constants";
 import { useDict } from "@/components/shared/locale-provider";
 import { cn } from "@/lib/utils";
@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 const ICONS = {
   image: ImageIcon,
   code: Code,
+  qr: QrCode,
 } as const;
 
 export function ToolsDropdown() {
