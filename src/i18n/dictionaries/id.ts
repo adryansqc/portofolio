@@ -263,7 +263,7 @@ export const id = {
   },
 
   footer: {
-    builtWith: "Dibuat dengan Next.js.",
+    builtWith: "Dibuat dengan penuh perhatian.",
     downloadCvPdf: "Unduh CV (PDF)",
   },
 

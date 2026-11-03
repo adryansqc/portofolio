@@ -265,7 +265,7 @@ export const en: Dictionary = {
   },
 
   footer: {
-    builtWith: "Built with Next.js.",
+    builtWith: "Made with attention to detail.",
     downloadCvPdf: "Download CV (PDF)",
   },
 
