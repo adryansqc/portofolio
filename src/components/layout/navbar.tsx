@@ -3,7 +3,17 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Download } from "lucide-react";
+import {
+  Menu,
+  X,
+  Download,
+  Camera,
+  FileText,
+  Image as ImageIcon,
+  Code,
+  QrCode,
+  Lock,
+} from "lucide-react";
 import { useState } from "react";
 import { NAV_LINKS, SITE, TOOLS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -12,6 +22,15 @@ import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { LocaleToggle } from "@/components/shared/locale-toggle";
 import { useDict, useLocale } from "@/components/shared/locale-provider";
 import { ToolsDropdown } from "./tools-dropdown";
+
+const TOOL_ICONS = {
+  camera: Camera,
+  fileText: FileText,
+  image: ImageIcon,
+  code: Code,
+  qr: QrCode,
+  lock: Lock,
+} as const;
 
 export function Navbar() {
   const pathname = usePathname();
@@ -100,20 +119,41 @@ export function Navbar() {
             ))}
 
             {/* Tools group — mobile */}
-            <div className="mt-2 border-t border-border/60 pt-2">
-              <p className="px-3 pb-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+            <div className="mt-2 border-t border-border/60 pt-3">
+              <p className="px-1 pb-2 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
                 {dict.nav.tools}
               </p>
-              {TOOLS.map((tool) => (
-                <Link
-                  key={tool.href}
-                  href={localePath(locale, tool.href)}
-                  onClick={() => setOpen(false)}
-                  className="rounded-md px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-                >
-                  {dict.tools.items[tool.key].label}
-                </Link>
-              ))}
+              <div className="grid grid-cols-2 gap-2">
+                {TOOLS.map((tool) => {
+                  const Icon =
+                    TOOL_ICONS[tool.icon as keyof typeof TOOL_ICONS] ??
+                    ImageIcon;
+                  const active = currentPath === tool.href;
+                  const item = dict.tools.items[tool.key];
+                  return (
+                    <Link
+                      key={tool.href}
+                      href={localePath(locale, tool.href)}
+                      onClick={() => setOpen(false)}
+                      aria-current={active ? "page" : undefined}
+                      className={cn(
+                        "flex min-h-16 items-center gap-2 rounded-xl border p-2 transition-colors",
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50",
+                        active
+                          ? "border-foreground/40 bg-muted"
+                          : "border-border bg-muted/20 hover:bg-muted"
+                      )}
+                    >
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-background text-foreground">
+                        <Icon className="h-4 w-4" />
+                      </span>
+                      <span className="min-w-0 text-xs font-medium leading-tight text-foreground">
+                        {item.label}
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
 
             <a
