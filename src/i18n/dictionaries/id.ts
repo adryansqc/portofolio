@@ -305,8 +305,15 @@ export const id = {
       transparent: "Transparan",
       zoomLabel: "Zoom",
       removeBg: "Hapus latar otomatis",
-      removeBgHint: "Paling bagus untuk foto dengan latar polos (putih/merah/biru/abu).",
+      removeBgHint:
+        "Hanya area latar yang menyambung ke tepi yang dihapus. Untuk hasil terbaik, klik warna latar pakai pipet.",
       thresholdLabel: "Sensitivitas",
+      pickColor: "Ambil warna latar",
+      picking: "Klik latar di foto…",
+      picked: "Warna dipilih",
+      clearPicked: "Hapus pilihan warna",
+      pickColorHint:
+        "Pipet membantu saat latar merah/putih tertukar dengan objek, misalnya kerudung putih di atas latar merah.",
       dragHint: "Tarik foto untuk posisi, gunakan zoom untuk memperbesar.",
       download: "Unduh Pas Foto",
       errorImage: "Gagal memuat gambar. Coba file lain.",

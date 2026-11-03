@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Download, Image as ImageIcon, Trash2, Upload } from "lucide-react";
+import { Download, Image as ImageIcon, Pipette, Trash2, Upload, X } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -60,49 +60,91 @@ function clampCrop(crop: Crop, width: number, height: number): Crop {
   };
 }
 
-function estimateBackground(data: Uint8ClampedArray, width: number, height: number) {
-  const buckets = new Map<string, { count: number; r: number; g: number; b: number }>();
+type Rgb = { r: number; g: number; b: number };
 
-  function add(i: number) {
-    if (data[i + 3] < 10) return;
-    const r = data[i];
-    const g = data[i + 1];
-    const b = data[i + 2];
-    const key = `${Math.round(r / 24)}-${Math.round(g / 24)}-${Math.round(b / 24)}`;
-    const bucket = buckets.get(key) ?? { count: 0, r: 0, g: 0, b: 0 };
-    bucket.count += 1;
-    bucket.r += r;
-    bucket.g += g;
-    bucket.b += b;
-    buckets.set(key, bucket);
+function cornerAverage(
+  data: Uint8ClampedArray,
+  width: number,
+  height: number,
+  originX: number,
+  originY: number
+): Rgb | null {
+  const size = Math.max(4, Math.floor(Math.min(width, height) * 0.02));
+  let r = 0;
+  let g = 0;
+  let b = 0;
+  let count = 0;
+
+  for (let y = 0; y < size; y += 1) {
+    for (let x = 0; x < size; x += 1) {
+      const px = originX + x;
+      const py = originY + y;
+      const i = (py * width + px) * 4;
+      if (data[i + 3] < 10) continue;
+      r += data[i];
+      g += data[i + 1];
+      b += data[i + 2];
+      count += 1;
+    }
   }
 
-  for (let x = 0; x < width; x += 1) {
-    add((0 * width + x) * 4);
-    add(((height - 1) * width + x) * 4);
-  }
-  for (let y = 0; y < height; y += 1) {
-    add((y * width + 0) * 4);
-    add((y * width + (width - 1)) * 4);
-  }
-
-  let best: { count: number; r: number; g: number; b: number } | null = null;
-  for (const bucket of buckets.values()) {
-    if (!best || bucket.count > best.count) best = bucket;
-  }
-
-  if (!best) return null;
-  return { r: best.r / best.count, g: best.g / best.count, b: best.b / best.count };
+  return count > 0 ? { r: r / count, g: g / count, b: b / count } : null;
 }
 
-function colorDistance(r: number, g: number, b: number, bg: { r: number; g: number; b: number }) {
+function getAutoSeeds(data: Uint8ClampedArray, width: number, height: number): Rgb[] {
+  const seeds = [
+    cornerAverage(data, width, height, 0, 0),
+    cornerAverage(data, width, height, width - Math.max(4, Math.floor(Math.min(width, height) * 0.02)), 0),
+    cornerAverage(data, width, height, 0, height - Math.max(4, Math.floor(Math.min(width, height) * 0.02))),
+    cornerAverage(
+      data,
+      width,
+      height,
+      width - Math.max(4, Math.floor(Math.min(width, height) * 0.02)),
+      height - Math.max(4, Math.floor(Math.min(width, height) * 0.02))
+    ),
+  ].filter((seed): seed is Rgb => seed !== null);
+
+  const clusters: Rgb[] = [];
+  for (const seed of seeds) {
+    const match = clusters.find((cluster) => colorDistance(seed.r, seed.g, seed.b, cluster) < 70);
+    if (!match) clusters.push(seed);
+  }
+
+  return clusters.length > 0 ? clusters : seeds.slice(0, 1);
+}
+
+function colorDistance(
+  r: number,
+  g: number,
+  b: number,
+  bg: { r: number; g: number; b: number }
+) {
   const dr = r - bg.r;
   const dg = g - bg.g;
   const db = b - bg.b;
   return Math.sqrt(dr * dr + dg * dg + db * db);
 }
 
-function removeBackground(source: HTMLCanvasElement, threshold: number) {
+function colorDistanceDirect(
+  aR: number,
+  aG: number,
+  aB: number,
+  bR: number,
+  bG: number,
+  bB: number
+) {
+  const dr = aR - bR;
+  const dg = aG - bG;
+  const db = aB - bB;
+  return Math.sqrt(dr * dr + dg * dg + db * db);
+}
+
+function removeBackground(
+  source: HTMLCanvasElement,
+  threshold: number,
+  picked: Rgb | null
+) {
   const canvas = document.createElement("canvas");
   canvas.width = source.width;
   canvas.height = source.height;
@@ -112,24 +154,80 @@ function removeBackground(source: HTMLCanvasElement, threshold: number) {
   ctx.drawImage(source, 0, 0);
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const data = imageData.data;
-  const bg = estimateBackground(data, canvas.width, canvas.height);
-  if (!bg) return canvas;
+  const width = canvas.width;
+  const height = canvas.height;
+  const seeds = picked ? [picked] : getAutoSeeds(data, width, height);
+  if (seeds.length === 0) return canvas;
 
-  const softEdge = threshold * 0.6;
+  const accepted = new Uint8Array(width * height);
+  const queue = new Int32Array(width * height);
+  let head = 0;
+  let tail = 0;
+  const edgeTolerance = Math.max(28, threshold * 0.55);
 
-  for (let i = 0; i < data.length; i += 4) {
-    const alpha = data[i + 3];
-    if (alpha === 0) continue;
+  const isNearSeed = (index: number) => {
+    const offset = index * 4;
+    return seeds.some(
+      (seed) => colorDistance(data[offset], data[offset + 1], data[offset + 2], seed) <= threshold
+    );
+  };
 
-    const distance = colorDistance(data[i], data[i + 1], data[i + 2], bg);
-    if (distance <= threshold) {
-      data[i + 3] = 0;
-    } else if (distance < threshold + softEdge) {
-      data[i + 3] = Math.min(
-        alpha,
-        Math.floor(((distance - threshold) / softEdge) * 255)
-      );
+  const enqueueIfNeeded = (index: number) => {
+    if (accepted[index]) return;
+    if (!isNearSeed(index)) return;
+    accepted[index] = 1;
+    queue[tail] = index;
+    tail += 1;
+  };
+
+  for (let x = 0; x < width; x += 1) {
+    enqueueIfNeeded(x);
+    enqueueIfNeeded((height - 1) * width + x);
+  }
+  for (let y = 0; y < height; y += 1) {
+    enqueueIfNeeded(y * width);
+    enqueueIfNeeded(y * width + width - 1);
+  }
+
+  const tryNeighbor = (from: number, neighbor: number) => {
+    if (accepted[neighbor]) return;
+    const fromOffset = from * 4;
+    const neighborOffset = neighbor * 4;
+    if (data[neighborOffset + 3] < 10) {
+      accepted[neighbor] = 1;
+      queue[tail] = neighbor;
+      tail += 1;
+      return;
     }
+    const distance = colorDistanceDirect(
+      data[fromOffset],
+      data[fromOffset + 1],
+      data[fromOffset + 2],
+      data[neighborOffset],
+      data[neighborOffset + 1],
+      data[neighborOffset + 2]
+    );
+    if (distance <= edgeTolerance || isNearSeed(neighbor)) {
+      accepted[neighbor] = 1;
+      queue[tail] = neighbor;
+      tail += 1;
+    }
+  };
+
+  while (head < tail) {
+    const index = queue[head];
+    head += 1;
+    const x = index % width;
+    const y = Math.floor(index / width);
+
+    if (x > 0) tryNeighbor(index, index - 1);
+    if (x < width - 1) tryNeighbor(index, index + 1);
+    if (y > 0) tryNeighbor(index, index - width);
+    if (y < height - 1) tryNeighbor(index, index + width);
+  }
+
+  for (let index = 0; index < accepted.length; index += 1) {
+    if (accepted[index]) data[index * 4 + 3] = 0;
   }
 
   ctx.putImageData(imageData, 0, 0);
@@ -144,6 +242,8 @@ export default function IdPhotoPage() {
   const [background, setBackground] = useState<BackgroundId>("white");
   const [removeBg, setRemoveBg] = useState(false);
   const [threshold, setThreshold] = useState(65);
+  const [picking, setPicking] = useState(false);
+  const [picked, setPicked] = useState<Rgb | null>(null);
   const [preview, setPreview] = useState<HTMLCanvasElement | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [result, setResult] = useState<{ url: string; size: number; filename: string } | null>(null);
@@ -176,10 +276,12 @@ export default function IdPhotoPage() {
       setPreviewUrl(null);
       return;
     }
-    const next = removeBg ? removeBackground(source.canvas, threshold) : source.canvas;
+    const next = removeBg
+      ? removeBackground(source.canvas, threshold, picked)
+      : source.canvas;
     setPreview(next);
     setPreviewUrl(next.toDataURL("image/png"));
-  }, [source, removeBg, threshold]);
+  }, [source, removeBg, threshold, picked]);
 
   useEffect(
     () => () => {
@@ -224,6 +326,8 @@ export default function IdPhotoPage() {
       setBackground("white");
       setRemoveBg(false);
       setThreshold(65);
+      setPicked(null);
+      setPicking(false);
     } catch (err) {
       console.error("[id-photo]", err);
       setError(copy.errorImage);
@@ -276,6 +380,30 @@ export default function IdPhotoPage() {
 
   function handlePointerDown(e: React.PointerEvent<HTMLDivElement>) {
     if (!crop) return;
+
+    if (picking && source) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const relX = (e.clientX - rect.left) / rect.width;
+      const relY = (e.clientY - rect.top) / rect.height;
+      const sourceX = Math.min(
+        source.width - 1,
+        Math.max(0, Math.floor(crop.x + relX * crop.width))
+      );
+      const sourceY = Math.min(
+        source.height - 1,
+        Math.max(0, Math.floor(crop.y + relY * crop.height))
+      );
+      const ctx = source.canvas.getContext("2d", { willReadFrequently: true });
+      if (ctx) {
+        const pixel = ctx.getImageData(sourceX, sourceY, 1, 1).data;
+        setPicked({ r: pixel[0], g: pixel[1], b: pixel[2] });
+        setRemoveBg(true);
+        setPicking(false);
+        setResult(null);
+      }
+      return;
+    }
+
     e.currentTarget.setPointerCapture(e.pointerId);
     dragRef.current = {
       pointerId: e.pointerId,
@@ -369,6 +497,8 @@ export default function IdPhotoPage() {
     setPreviewUrl(null);
     setCrop(null);
     setZoom(1);
+    setPicked(null);
+    setPicking(false);
   }
 
   const frameWidth = 240;
@@ -452,7 +582,7 @@ export default function IdPhotoPage() {
                   width: `${frameWidth}px`,
                   height: `${frameHeight}px`,
                   ...frameStyle,
-                  cursor: crop ? "grab" : "default",
+                  cursor: picking || crop ? (picking ? "crosshair" : "grab") : "default",
                 }}
               >
                 {previewUrl && imageStyle && (
@@ -618,6 +748,52 @@ export default function IdPhotoPage() {
                       }}
                       className="mt-2 w-full accent-foreground"
                     />
+
+                    <div className="mt-4 flex flex-wrap items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setPicking((value) => !value)}
+                        aria-pressed={picking}
+                        className={cn(
+                          "inline-flex items-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-medium transition-colors",
+                          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50",
+                          picking
+                            ? "border-foreground bg-foreground text-background"
+                            : "border-border hover:bg-muted"
+                        )}
+                      >
+                        <Pipette className="h-3.5 w-3.5" />
+                        {picking ? copy.picking : copy.pickColor}
+                      </button>
+
+                      {picked && (
+                        <>
+                          <span className="inline-flex items-center gap-1.5 rounded-lg border border-border px-2 py-2 text-xs text-muted-foreground">
+                            <span
+                              className="h-4 w-4 rounded-sm border border-border"
+                              style={{
+                                backgroundColor: `rgb(${picked.r}, ${picked.g}, ${picked.b})`,
+                              }}
+                            />
+                            {copy.picked}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setPicked(null);
+                              setResult(null);
+                            }}
+                            aria-label={copy.clearPicked}
+                            className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+                          >
+                            <X className="h-4 w-4" />
+                          </button>
+                        </>
+                      )}
+                    </div>
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      {copy.pickColorHint}
+                    </p>
                   </div>
                 )}
               </div>

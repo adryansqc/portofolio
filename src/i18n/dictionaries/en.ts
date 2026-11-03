@@ -307,8 +307,15 @@ export const en: Dictionary = {
       transparent: "Transparent",
       zoomLabel: "Zoom",
       removeBg: "Remove background automatically",
-      removeBgHint: "Best for photos with plain backgrounds (white/red/blue/gray).",
+      removeBgHint:
+        "Only background areas connected to the edges are removed. For best results, pick the background color with the eyedropper.",
       thresholdLabel: "Sensitivity",
+      pickColor: "Pick background color",
+      picking: "Click the background…",
+      picked: "Picked",
+      clearPicked: "Clear picked color",
+      pickColorHint:
+        "The eyedropper helps when red/white backgrounds are confused with the subject, e.g. white hijab on a red background.",
       dragHint: "Drag the photo to position it, use zoom to enlarge.",
       download: "Download ID Photo",
       errorImage: "Failed to load image. Try another file.",
