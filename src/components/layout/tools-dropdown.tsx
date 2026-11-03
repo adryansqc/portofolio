@@ -4,13 +4,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Image as ImageIcon, Code, QrCode, Lock, FileText } from "lucide-react";
+import { ChevronDown, Image as ImageIcon, Code, QrCode, Lock, FileText, Camera } from "lucide-react";
 import { TOOLS } from "@/lib/constants";
 import { useDict, useLocale } from "@/components/shared/locale-provider";
 import { localePath, stripLocaleFromPath } from "@/i18n/locale-path";
 import { cn } from "@/lib/utils";
 
 const ICONS = {
+  camera: Camera,
   fileText: FileText,
   image: ImageIcon,
   code: Code,

@@ -10,6 +10,7 @@ const STATIC_PATHS = [
   "/",
   "/about",
   "/projects",
+  "/tools/id-photo",
   "/tools/pdf-merge",
   "/tools/image-tools",
   "/tools/qr-generator",

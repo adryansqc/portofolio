@@ -28,6 +28,9 @@ export const id = {
     pdfMergeTitle: "Gabung PDF",
     pdfMergeDescription:
       "Gabungkan beberapa file PDF menjadi satu langsung di browser.",
+    idPhotoTitle: "Pas Foto Maker",
+    idPhotoDescription:
+      "Crop, resize, dan hapus latar pas foto langsung di browser.",
   },
 
   nav: {
@@ -175,6 +178,10 @@ export const id = {
         label: "Password Generator",
         description: "Buat password acak yang kuat dan aman.",
       },
+      idPhoto: {
+        label: "Pas Foto",
+        description: "Buat pas foto 2×3, 3×4, 4×6 cm.",
+      },
       pdfMerge: {
         label: "Gabung PDF",
         description: "Gabungkan beberapa PDF menjadi satu.",
@@ -282,6 +289,31 @@ export const id = {
       pdfOnly: "Hanya file PDF yang didukung.",
       tooManyFiles: "Maksimal 10 file PDF.",
       totalTooLarge: "Ukuran total maksimal 50 MB.",
+    },
+    idPhoto: {
+      title: "Pas Foto Maker",
+      description:
+        "Buat pas foto resmi 2×3, 3×4, atau 4×6 cm. Foto diproses lokal di browser — tidak dikirim ke server.",
+      upload: "Upload foto",
+      uploadHint:
+        "Pilih atau seret JPG/PNG/WebP (maks 10 MB). Latar polos memberi hasil hapus background terbaik.",
+      presetLabel: "Ukuran pas foto",
+      backgroundLabel: "Latar",
+      white: "Putih",
+      red: "Merah",
+      blue: "Biru",
+      transparent: "Transparan",
+      zoomLabel: "Zoom",
+      removeBg: "Hapus latar otomatis",
+      removeBgHint: "Paling bagus untuk foto dengan latar polos (putih/merah/biru/abu).",
+      thresholdLabel: "Sensitivitas",
+      dragHint: "Tarik foto untuk posisi, gunakan zoom untuk memperbesar.",
+      download: "Unduh Pas Foto",
+      errorImage: "Gagal memuat gambar. Coba file lain.",
+      tooLarge: "Ukuran file maksimal 10 MB.",
+      imageOnly: "Hanya file gambar yang didukung.",
+      outputHint:
+        "Hasil unduhan beresolusi 300 DPI. Gunakan hapus latar otomatis jika ingin ganti background.",
     },
   },
 

@@ -30,6 +30,9 @@ export const en: Dictionary = {
     pdfMergeTitle: "PDF Merge",
     pdfMergeDescription:
       "Merge multiple PDF files into one directly in the browser.",
+    idPhotoTitle: "ID Photo Maker",
+    idPhotoDescription:
+      "Crop, resize, and remove backgrounds for ID photos directly in the browser.",
   },
 
   nav: {
@@ -177,6 +180,10 @@ export const en: Dictionary = {
         label: "Password Generator",
         description: "Generate strong, random passwords.",
       },
+      idPhoto: {
+        label: "ID Photo Maker",
+        description: "Create 2×3, 3×4, 4×6 cm ID photos.",
+      },
       pdfMerge: {
         label: "PDF Merge",
         description: "Merge multiple PDFs into one.",
@@ -284,6 +291,31 @@ export const en: Dictionary = {
       pdfOnly: "Only PDF files are supported.",
       tooManyFiles: "Maximum 10 PDF files.",
       totalTooLarge: "Total size must be under 50 MB.",
+    },
+    idPhoto: {
+      title: "ID Photo Maker",
+      description:
+        "Create official 2×3, 3×4, or 4×6 cm ID photos. Everything runs locally in your browser — photos are not sent to a server.",
+      upload: "Upload photo",
+      uploadHint:
+        "Choose or drop JPG/PNG/WebP (max 10 MB). Plain backgrounds work best for background removal.",
+      presetLabel: "ID photo size",
+      backgroundLabel: "Background",
+      white: "White",
+      red: "Red",
+      blue: "Blue",
+      transparent: "Transparent",
+      zoomLabel: "Zoom",
+      removeBg: "Remove background automatically",
+      removeBgHint: "Best for photos with plain backgrounds (white/red/blue/gray).",
+      thresholdLabel: "Sensitivity",
+      dragHint: "Drag the photo to position it, use zoom to enlarge.",
+      download: "Download ID Photo",
+      errorImage: "Failed to load image. Try another file.",
+      tooLarge: "File size must be under 10 MB.",
+      imageOnly: "Only image files are supported.",
+      outputHint:
+        "Downloads are 300 DPI. Use automatic background removal if you want to change the background.",
     },
   },
 
