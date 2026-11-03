@@ -4,7 +4,7 @@ import { PROJECT_CONTENT } from "@/i18n/content/projects";
 
 export const SITE = {
   name: "Adryan",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://adryan.dev",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://portofolio-adryan.vercel.app",
   domain: "Adryan",
   role: "Full Stack Developer",
   available: true,

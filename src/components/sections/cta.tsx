@@ -22,7 +22,7 @@ export function CTA() {
             {dict.sections.ctaDesc}
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button href="mailto:hello@adryan.dev" size="lg">
+            <Button href="mailto:adryandaywalker15@gmail.com" size="lg">
               {dict.sections.getInTouch}
               <ArrowRight className="h-4 w-4" />
             </Button>
