@@ -77,7 +77,7 @@ export function ChatWidget() {
       )}
 
       {open && (
-        <div className="glass flex h-[min(80vh,600px)] w-[min(calc(100vw-2.5rem),400px)] flex-col overflow-hidden rounded-2xl animate-slide-up">
+        <div className="flex h-[min(80vh,600px)] w-[min(calc(100vw-2.5rem),400px)] flex-col overflow-hidden rounded-2xl border border-border bg-background shadow-2xl animate-slide-up">
           <div className="flex items-center justify-between border-b border-border px-4 py-3">
             <div className="flex items-center gap-2.5">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted">
