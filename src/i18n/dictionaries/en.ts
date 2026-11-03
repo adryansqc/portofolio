@@ -27,6 +27,9 @@ export const en: Dictionary = {
     qrGeneratorTitle: "QR Generator",
     qrGeneratorDescription:
       "Create custom QR codes with colors and download them as PNG.",
+    pdfMergeTitle: "PDF Merge",
+    pdfMergeDescription:
+      "Merge multiple PDF files into one directly in the browser.",
   },
 
   nav: {
@@ -174,6 +177,10 @@ export const en: Dictionary = {
         label: "Password Generator",
         description: "Generate strong, random passwords.",
       },
+      pdfMerge: {
+        label: "PDF Merge",
+        description: "Merge multiple PDFs into one.",
+      },
       base64: {
         label: "Base64 Encoder/Decoder",
         description: "Encode or decode text to Base64 quickly.",
@@ -262,6 +269,22 @@ export const en: Dictionary = {
       sizeLabel: "Size ({size}px)",
       download: "Download PNG",
     },
+    pdfMerge: {
+      title: "Merge PDF",
+      description:
+        "Merge multiple PDF files into one. Everything runs in your browser — files are not sent to a server.",
+      addFiles: "Add PDF Files",
+      addFilesHint: "Choose or drop multiple PDF files (max 10 files, 50 MB).",
+      selectedFiles: "Selected files ({count})",
+      merge: "Merge PDFs",
+      merging: "Merging...",
+      error:
+        "Failed to merge PDFs. Make sure all files are valid and not locked.",
+      needMore: "Select at least 2 PDF files to merge.",
+      pdfOnly: "Only PDF files are supported.",
+      tooManyFiles: "Maximum 10 PDF files.",
+      totalTooLarge: "Total size must be under 50 MB.",
+    },
   },
 
   footer: {
@@ -277,6 +300,9 @@ export const en: Dictionary = {
     closeChat: "Close chat",
     sendMessage: "Send message",
     copyPassword: "Copy password",
+    moveFileUp: "Move file up",
+    moveFileDown: "Move file down",
+    removeFile: "Remove file",
   },
 
   chat: {

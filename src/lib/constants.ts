@@ -21,6 +21,11 @@ export const NAV_LINKS = [
 
 export const TOOLS = [
   {
+    href: "/tools/pdf-merge",
+    key: "pdfMerge",
+    icon: "fileText" as const,
+  },
+  {
     href: "/tools/image-tools",
     key: "imageTools",
     icon: "image" as const,

@@ -25,6 +25,9 @@ export const id = {
     qrGeneratorTitle: "QR Generator",
     qrGeneratorDescription:
       "Buat QR Code kustom dengan warna dan unduh sebagai PNG.",
+    pdfMergeTitle: "Gabung PDF",
+    pdfMergeDescription:
+      "Gabungkan beberapa file PDF menjadi satu langsung di browser.",
   },
 
   nav: {
@@ -172,6 +175,10 @@ export const id = {
         label: "Password Generator",
         description: "Buat password acak yang kuat dan aman.",
       },
+      pdfMerge: {
+        label: "Gabung PDF",
+        description: "Gabungkan beberapa PDF menjadi satu.",
+      },
       base64: {
         label: "Base64 Encoder/Decoder",
         description: "Encode atau decode teks ke Base64 dengan cepat.",
@@ -260,6 +267,22 @@ export const id = {
       sizeLabel: "Ukuran ({size}px)",
       download: "Unduh PNG",
     },
+    pdfMerge: {
+      title: "Gabung PDF",
+      description:
+        "Gabungkan beberapa file PDF menjadi satu. Semua diproses di browser — file tidak dikirim ke server.",
+      addFiles: "Tambah File PDF",
+      addFilesHint: "Pilih atau seret beberapa file PDF (maks 10 file, 50 MB).",
+      selectedFiles: "File terpilih ({count})",
+      merge: "Gabungkan PDF",
+      merging: "Menggabungkan...",
+      error:
+        "Gagal menggabungkan PDF. Pastikan semua file valid dan tidak terkunci.",
+      needMore: "Pilih minimal 2 file PDF untuk digabungkan.",
+      pdfOnly: "Hanya file PDF yang didukung.",
+      tooManyFiles: "Maksimal 10 file PDF.",
+      totalTooLarge: "Ukuran total maksimal 50 MB.",
+    },
   },
 
   footer: {
@@ -275,6 +298,9 @@ export const id = {
     closeChat: "Tutup obrolan",
     sendMessage: "Kirim pesan",
     copyPassword: "Salin password",
+    moveFileUp: "Pindahkan file ke atas",
+    moveFileDown: "Pindahkan file ke bawah",
+    removeFile: "Hapus file",
   },
 
   chat: {

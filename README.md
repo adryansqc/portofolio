@@ -9,7 +9,7 @@ Personal portfolio website for Adryan, a Full Stack Developer. Built with Next.j
 - Tailwind CSS v4
 - `next/font` (Geist Sans / Geist Mono)
 - AI SDK + Google Gemini for the chat assistant (`/api/chat`)
-- Browser-only tools: image compression/conversion, image-to-PDF, QR generator, password generator, Base64 encoder/decoder
+- Browser-only tools: PDF merge, image compression/conversion, image-to-PDF, QR generator, password generator, Base64 encoder/decoder
 
 ## Getting Started
 
@@ -47,6 +47,7 @@ All public pages are localized under `/[locale]`:
 - `/{locale}/about` — about
 - `/{locale}/projects` — projects grid
 - `/{locale}/projects/{slug}` — project detail (statically generated)
+- `/{locale}/tools/pdf-merge` — merge multiple PDFs in the browser
 - `/{locale}/tools/image-tools` — compress/convert/PDF tools
 - `/{locale}/tools/qr-generator`
 - `/{locale}/tools/password-generator`
