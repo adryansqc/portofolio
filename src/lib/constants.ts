@@ -2,6 +2,8 @@
 import type { Locale } from "@/i18n/config";
 import { PROJECT_CONTENT } from "@/i18n/content/projects";
 
+export const EMAIL = "adryandaywalker15@gmail.com";
+
 export const SITE = {
   name: "Adryan",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://portofolio-adryan.vercel.app",
@@ -47,7 +49,7 @@ export const SOCIALS = [
     label: "LinkedIn",
     icon: "linkedin",
   },
-  { href: "mailto:adryandaywalker15@gmail.com", label: "Email", icon: "mail" },
+  { href: `mailto:${EMAIL}`, label: "Email", icon: "mail" },
 ] as const;
 
 export const SKILLS = [

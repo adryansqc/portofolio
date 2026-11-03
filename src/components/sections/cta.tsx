@@ -4,6 +4,7 @@
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
+import { EMAIL } from "@/lib/constants";
 import { useDict, useLocale } from "@/components/shared/locale-provider";
 import { localePath } from "@/i18n/locale-path";
 
@@ -22,7 +23,7 @@ export function CTA() {
             {dict.sections.ctaDesc}
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button href="mailto:adryandaywalker15@gmail.com" size="lg">
+            <Button href={`mailto:${EMAIL}`} size="lg">
               {dict.sections.getInTouch}
               <ArrowRight className="h-4 w-4" />
             </Button>

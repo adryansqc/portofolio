@@ -14,12 +14,13 @@ export function SocialLinks({ className }: { className?: string }) {
     <div className={cn("flex items-center gap-1", className)}>
       {SOCIALS.map((s) => {
         const Icon = ICONS[s.icon as keyof typeof ICONS];
+        const isMailto = s.href.startsWith("mailto:");
         return (
           <a
             key={s.label}
             href={s.href}
-            target="_blank"
-            rel="noreferrer"
+            target={isMailto ? undefined : "_blank"}
+            rel={isMailto ? undefined : "noreferrer"}
             aria-label={s.label}
             className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground hover:bg-muted"
           >

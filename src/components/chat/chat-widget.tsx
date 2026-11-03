@@ -137,16 +137,19 @@ export function ChatWidget() {
                           {children}
                         </code>
                       ),
-                      a: ({ href, children }) => (
-                        <a
-                          href={href}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="underline underline-offset-2"
-                        >
-                          {children}
-                        </a>
-                      ),
+                      a: ({ href, children }) => {
+                        const isMailto = href?.startsWith("mailto:") ?? false;
+                        return (
+                          <a
+                            href={href}
+                            target={isMailto ? undefined : "_blank"}
+                            rel={isMailto ? undefined : "noreferrer"}
+                            className="underline underline-offset-2"
+                          >
+                            {children}
+                          </a>
+                        );
+                      },
                     }}
                   >
                     {msg.text}

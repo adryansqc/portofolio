@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Adryan — Portfolio
+
+Personal portfolio website for Adryan, a Full Stack Developer. Built with Next.js App Router, TypeScript, Tailwind CSS v4, and localized in Indonesian (`id`, default) and English (`en`).
+
+## Tech Stack
+
+- Next.js 15 (App Router, Turbopack in dev)
+- React 19, TypeScript (strict)
+- Tailwind CSS v4
+- `next/font` (Geist Sans / Geist Mono)
+- AI SDK + Google Gemini for the chat assistant (`/api/chat`)
+- Browser-only tools: image compression/conversion, image-to-PDF, QR generator, password generator, Base64 encoder/decoder
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 (middleware redirects to `/id` or `/en`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create `.env.local` (ignored by git):
 
-## Learn More
+```bash
+GEMINI_API_KEY=your_google_ai_key
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
+```
 
-To learn more about Next.js, take a look at the following resources:
+- `GEMINI_API_KEY` — required for the AI chat route. Without it, the site still builds/runs; `/api/chat` returns a localized error.
+- `NEXT_PUBLIC_SITE_URL` — optional; used for canonical URLs, OpenGraph, sitemap, and robots. Defaults to `https://portofolio-adryan.vercel.app`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `npm run dev` — start dev server with Turbopack
+- `npm run build` — production build
+- `npm run start` — serve production build
+- `npm run lint` — lint with ESLint
 
-## Deploy on Vercel
+## Routes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+All public pages are localized under `/[locale]`:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `/{locale}` — home
+- `/{locale}/about` — about
+- `/{locale}/projects` — projects grid
+- `/{locale}/projects/{slug}` — project detail (statically generated)
+- `/{locale}/tools/image-tools` — compress/convert/PDF tools
+- `/{locale}/tools/qr-generator`
+- `/{locale}/tools/password-generator`
+- `/{locale}/tools/base64`
+- `/api/chat` — AI chat endpoint (POST, edge runtime)
+
+`robots.txt` and `sitemap.xml` are generated from `src/app/robots.ts` and `src/app/sitemap.ts`.
+
+## Project Structure
+
+- `src/app/[locale]` — localized routes and layouts
+- `src/app/api/chat` — Gemini-backed chat API
+- `src/components` — layout, sections, shared providers, UI primitives, chat widget
+- `src/i18n` — locale config, dictionaries, project content
+- `src/lib` — site constants, project metadata, utilities, fonts
+- `public` — local images and CV
+
+## Deployment
+
+Deploy on Vercel. Set `GEMINI_API_KEY` and `NEXT_PUBLIC_SITE_URL` in the project environment variables. All tools run client-side; no uploaded files leave the browser.
