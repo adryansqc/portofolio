@@ -33,7 +33,7 @@ export function Skills() {
             return (
               <div
                 key={skill.title}
-                className="group rounded-2xl border border-border bg-background p-6 transition-colors hover:border-foreground/20"
+                  className="group surface-card rounded-2xl p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40"
               >
                 <div
                   className={cn(

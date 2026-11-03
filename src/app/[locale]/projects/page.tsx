@@ -87,7 +87,7 @@ export default function ProjectsPage() {
         {filtered.map((project, i) => (
           <article
             key={project.slug}
-            className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-background transition-all hover:border-foreground/20 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/40 animate-fade-in-up"
+            className="group surface-card flex flex-col overflow-hidden rounded-2xl transition-all hover:-translate-y-0.5 hover:border-accent/40 animate-fade-in-up"
             style={{ animationDelay: `${Math.min(i * 80, 400)}ms` }}
           >
             <div className="relative aspect-[16/10] overflow-hidden bg-muted">
@@ -98,7 +98,7 @@ export default function ProjectsPage() {
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-60" />
+              <div className="pointer-events-none absolute inset-0 bg-black/15" />
 
               <div className="absolute top-3 left-3">
                 <span
@@ -201,7 +201,7 @@ export default function ProjectsPage() {
         </div>
       )}
 
-      <div className="mt-20 rounded-3xl border border-border bg-gradient-to-b from-muted/40 to-background p-8 text-center sm:p-12">
+      <div className="surface-card mt-20 rounded-3xl p-8 text-center sm:p-12">
         <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
           {dict.sections.moreOnGithub}
         </h2>

@@ -14,7 +14,7 @@ export function CTA() {
   return (
     <section>
       <Container className="py-16 sm:py-24">
-        <div className="rounded-3xl border border-border bg-gradient-to-b from-muted/50 to-background p-8 sm:p-12 text-center">
+        <div className="surface-card rounded-3xl p-8 sm:p-12 text-center">
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             {dict.sections.ctaTitle}
           </h2>

@@ -36,7 +36,7 @@ export function Stats() {
   return (
     <section>
       <Container>
-        <div className="rounded-2xl border border-border bg-muted/30 px-6 py-10">
+          <div className="surface-card rounded-2xl px-6 py-10">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             {STATS.map((s) => (
               <StatItem

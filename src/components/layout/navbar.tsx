@@ -21,7 +21,7 @@ export function Navbar() {
   const { locale } = useLocale();
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/70 backdrop-blur-md">
+    <header className="sticky top-0 z-40 w-full border-b border-border/70 bg-background/60 backdrop-blur-xl">
       <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between px-6">
         {/* Logo */}
         <Link

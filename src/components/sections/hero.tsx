@@ -18,8 +18,9 @@ export function Hero() {
 
   return (
     <section className="relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 grid-bg opacity-[0.35] dark:opacity-25" />
+      <div className="pointer-events-none absolute inset-0 grid-bg opacity-[0.22] dark:opacity-[0.18]" />
       <div className="pointer-events-none absolute -top-40 right-0 h-96 w-96 rounded-full bg-accent/10 blur-3xl animate-blob" />
+      <div className="pointer-events-none absolute bottom-16 -left-24 h-72 w-72 rounded-full bg-accent-2/10 blur-3xl animate-blob" />
 
       <Container className="relative pt-20 pb-24 sm:pt-28 sm:pb-32">
         {SITE.available && (
@@ -37,7 +38,7 @@ export function Hero() {
         <h1 className="mt-6 max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl animate-fade-in-up delay-100">
           {dict.hero.greeting}
           <br />
-          <span className="text-muted-foreground">{dict.hero.tagline}</span>
+          <span className="text-accent">{dict.hero.tagline}</span>
         </h1>
 
         <p className="mt-4 font-mono text-sm text-muted-foreground animate-fade-in-up delay-200">

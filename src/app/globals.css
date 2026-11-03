@@ -4,23 +4,25 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #fafafa;
-  --foreground: #0a0a0a;
-  --muted: #f4f4f5;
-  --muted-foreground: #71717a;
-  --border: #e4e4e7;
-  --accent: #2563eb;
+  --background: #f7f7fc;
+  --foreground: #14162b;
+  --muted: #e9e9f3;
+  --muted-foreground: #5f617e;
+  --border: #d6d6e6;
+  --accent: #5147e5;
   --accent-foreground: #ffffff;
+  --accent-2: #0e7490;
 }
 
 .dark {
-  --background: #09090b;
-  --foreground: #fafafa;
-  --muted: #18181b;
-  --muted-foreground: #a1a1aa;
-  --border: #27272a;
-  --accent: #3b82f6;
+  --background: #080a12;
+  --foreground: #eaeaff;
+  --muted: #111525;
+  --muted-foreground: #a0a2c2;
+  --border: #23263d;
+  --accent: #7367f0;
   --accent-foreground: #ffffff;
+  --accent-2: #3fa6b8;
 }
 
 @theme inline {
@@ -30,6 +32,7 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
   --color-accent-foreground: var(--accent-foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -100,10 +103,33 @@
   .delay-500 { animation-delay: 0.5s; }
 
   .grid-bg {
-    background-image:
-      linear-gradient(to right, var(--border) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath d='M48 0H0v48' fill='none' stroke='%237367f0' stroke-opacity='0.22'/%3E%3C/svg%3E");
     background-size: 48px 48px;
-    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  }
+
+  .surface-card {
+    background: color-mix(in srgb, var(--muted) 64%, transparent);
+    backdrop-filter: blur(18px) saturate(120%);
+    -webkit-backdrop-filter: blur(18px) saturate(120%);
+    border: 1px solid color-mix(in srgb, var(--border) 74%, var(--accent) 26%);
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, var(--foreground) 8%, transparent),
+      0 28px 80px -42px rgba(0, 0, 0, 0.72);
+  }
+
+  .glass {
+    background: color-mix(in srgb, var(--muted) 52%, transparent);
+    backdrop-filter: blur(20px) saturate(130%);
+    -webkit-backdrop-filter: blur(20px) saturate(130%);
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, var(--foreground) 8%, transparent),
+      0 18px 60px -35px rgba(0, 0, 0, 0.75);
+  }
+
+  .shadow-glow {
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--accent) 22%, transparent),
+      0 22px 60px -34px rgba(0, 0, 0, 0.75);
   }
 }

@@ -82,7 +82,7 @@ export function ToolsDropdown() {
       {open && (
         <div
           role="menu"
-          className="absolute left-0 top-full mt-1 w-72 overflow-hidden rounded-xl border border-border bg-background shadow-lg animate-fade-in"
+          className="glass absolute left-0 top-full mt-1 w-72 overflow-hidden rounded-xl animate-fade-in"
         >
           <div className="p-1.5">
             {TOOLS.map((tool) => {
