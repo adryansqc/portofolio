@@ -36,6 +36,18 @@ export const TOOLS = [
     description: "Buat QR Code kustom dengan warna dan unduh sebagai PNG.",
     icon: "qr" as const, // pastikan icon ini ada di tools-dropdown
   },
+  {
+    href: "/tools/password-generator",
+    label: "Password Generator",
+    description: "Buat password acak yang kuat dan aman.",
+    icon: "lock" as const,
+  },
+  {
+    href: "/tools/base64",
+    label: "Base64 Encoder/Decoder",
+    description: "Encode atau decode teks ke Base64 dengan cepat.",
+    icon: "code" as const,
+  },
 ] as const;
 
 // ============================================================
