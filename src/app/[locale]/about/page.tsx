@@ -6,11 +6,13 @@ import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { SocialLinks } from "@/components/shared/social-links";
-import { useDict } from "@/components/shared/locale-provider";
-import { ABOUT_STACK, ABOUT_TIMELINE, SITE } from "@/lib/constants";
+import { useDict, useLocale } from "@/components/shared/locale-provider";
+import { localePath } from "@/i18n/locale-path";
+import { ABOUT_STACK, SITE } from "@/lib/constants";
 
 export default function AboutPage() {
   const dict = useDict();
+  const { locale } = useLocale();
 
   return (
     <Container className="py-16 sm:py-24">
@@ -27,7 +29,7 @@ export default function AboutPage() {
           <p>{dict.about.p3}</p>
 
           <div className="flex flex-wrap gap-3 pt-2">
-            <Button href="/projects" variant="outline">
+            <Button href={localePath(locale, "/projects")} variant="outline">
               {dict.about.seeProjects}
               <ArrowUpRight className="h-4 w-4" />
             </Button>
@@ -103,7 +105,7 @@ export default function AboutPage() {
         </p>
 
         <ol className="mt-8 space-y-6 border-l border-border pl-6">
-          {ABOUT_TIMELINE.map((item) => (
+          {dict.about.timeline.map((item) => (
             <li key={item.year} className="relative">
               <span className="absolute -left-[31px] top-1.5 h-3 w-3 rounded-full border-2 border-background bg-foreground" />
               <p className="font-mono text-xs text-muted-foreground">

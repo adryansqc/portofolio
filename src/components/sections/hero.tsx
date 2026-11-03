@@ -7,12 +7,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { SocialLinks } from "@/components/shared/social-links";
 import { useTypingEffect } from "@/hooks/use-typing-effect";
-import { useDict } from "@/components/shared/locale-provider";
-import { SITE, TYPING_TEXTS } from "@/lib/constants";
+import { useDict, useLocale } from "@/components/shared/locale-provider";
+import { localePath } from "@/i18n/locale-path";
+import { SITE } from "@/lib/constants";
 
 export function Hero() {
-  const typing = useTypingEffect(TYPING_TEXTS);
   const dict = useDict();
+  const { locale } = useLocale();
+  const typing = useTypingEffect(dict.hero.typingTexts);
 
   return (
     <section className="relative overflow-hidden">
@@ -44,11 +46,11 @@ export function Hero() {
         </p>
 
         <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground animate-fade-in-up delay-300">
-          {SITE.description}
+          {dict.hero.description}
         </p>
 
         <div className="mt-10 flex flex-wrap items-center gap-3 animate-fade-in-up delay-500">
-          <Button href="/projects" size="lg">
+          <Button href={localePath(locale, "/projects")} size="lg">
             {dict.common.viewWork}
             <ArrowRight className="h-4 w-4" />
           </Button>

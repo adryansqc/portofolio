@@ -1,4 +1,4 @@
-// src/app/tools/qr-generator/page.tsx
+// src/app/[locale]/tools/qr-generator/page.tsx
 "use client";
 
 import { useRef, useState } from "react";
@@ -7,13 +7,17 @@ import { Download, QrCode } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { SITE } from "@/lib/constants";
+import { useDict } from "@/components/shared/locale-provider";
 
 export default function QrGeneratorPage() {
-  const [value, setValue] = useState("https://adryan.dev");
+  const [value, setValue] = useState(SITE.url);
   const [fgColor, setFgColor] = useState("#000000");
   const [bgColor, setBgColor] = useState("#ffffff");
   const [size, setSize] = useState(256);
   const qrRef = useRef<HTMLDivElement>(null);
+  const dict = useDict();
+  const copy = dict.tools.qrGenerator;
 
   function handleDownload() {
     const canvas = qrRef.current?.querySelector("canvas");
@@ -32,29 +36,28 @@ export default function QrGeneratorPage() {
       <div className="max-w-2xl animate-fade-in-up">
         <Badge>
           <QrCode className="h-3 w-3" />
-          Tools
+          {dict.tools.badge}
         </Badge>
         <h1 className="mt-6 text-3xl font-semibold tracking-tight sm:text-4xl">
-          QR Code Generator
+          {copy.title}
         </h1>
         <p className="mt-3 text-muted-foreground">
-          Buat QR Code kustom. Semua diproses di browser — data tidak dikirim ke
-          server.
+          {copy.description}
         </p>
       </div>
 
       <div className="mt-10 grid gap-8 md:grid-cols-2 animate-fade-in-up delay-100">
-        {/* Panel Input */}
+        {/* Input panel */}
         <div className="space-y-6">
           <div>
             <label className="mb-1.5 block text-sm font-medium">
-              Konten / URL
+              {copy.contentLabel}
             </label>
             <input
               type="text"
               value={value}
               onChange={(e) => setValue(e.target.value)}
-              placeholder="https://contoh.com"
+              placeholder={copy.placeholder}
               className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:border-foreground/30"
             />
           </div>
@@ -62,7 +65,7 @@ export default function QrGeneratorPage() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="mb-1.5 block text-sm font-medium">
-                Warna QR
+                {copy.qrColorLabel}
               </label>
               <input
                 type="color"
@@ -73,7 +76,7 @@ export default function QrGeneratorPage() {
             </div>
             <div>
               <label className="mb-1.5 block text-sm font-medium">
-                Warna Latar
+                {copy.backgroundColorLabel}
               </label>
               <input
                 type="color"
@@ -86,7 +89,7 @@ export default function QrGeneratorPage() {
 
           <div>
             <label className="mb-1.5 block text-sm font-medium">
-              Ukuran ({size}px)
+              {copy.sizeLabel.replace("{size}", String(size))}
             </label>
             <input
               type="range"
@@ -127,7 +130,7 @@ export default function QrGeneratorPage() {
             className="mt-6 w-full max-w-[320px] sm:max-w-[400px]"
           >
             <Download className="h-4 w-4" />
-            Unduh PNG
+            {copy.download}
           </Button>
         </div>
       </div>

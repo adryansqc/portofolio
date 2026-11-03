@@ -51,7 +51,7 @@ export function Skills() {
 
                 <div className="mt-5 space-y-2">
                   <div className="flex justify-between text-xs text-muted-foreground">
-                    <span>Proficiency</span>
+                    <span>{dict.common.proficiency}</span>
                     <span className="font-mono text-foreground">
                       {skill.level}%
                     </span>

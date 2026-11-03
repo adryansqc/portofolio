@@ -36,13 +36,13 @@ export function ChatWidget() {
         body: JSON.stringify({ prompt: text, locale }),
       });
       const data = await res.json();
-      setMessages((m) => [
-        ...m,
-        {
-          text: data.text ?? `Error: ${data.error ?? "Unknown"}`,
-          isUser: false,
-        },
-      ]);
+      const assistantText =
+        typeof data.text === "string" && data.text.trim()
+          ? data.text
+          : typeof data.error === "string" && data.error.trim()
+            ? data.error
+            : dict.chat.unknownError;
+      setMessages((m) => [...m, { text: assistantText, isUser: false }]);
     } catch {
       setMessages((m) => [
         ...m,
@@ -65,7 +65,7 @@ export function ChatWidget() {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          aria-label="Open chat"
+          aria-label={dict.aria.openChat}
           className="relative flex h-12 w-12 items-center justify-center rounded-full bg-foreground text-background shadow-lg transition-transform hover:scale-105"
         >
           <MessageCircle className="h-5 w-5" />
@@ -93,7 +93,7 @@ export function ChatWidget() {
             </div>
             <button
               onClick={() => setOpen(false)}
-              aria-label="Close chat"
+              aria-label={dict.aria.closeChat}
               className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
             >
               <X className="h-4 w-4" />
@@ -184,7 +184,7 @@ export function ChatWidget() {
               <button
                 onClick={send}
                 disabled={loading || !prompt.trim()}
-                aria-label="Send"
+                aria-label={dict.aria.sendMessage}
                 className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-foreground text-background transition-opacity hover:opacity-90 disabled:opacity-40"
               >
                 <Send className="h-4 w-4" />

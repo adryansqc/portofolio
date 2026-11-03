@@ -6,7 +6,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Image as ImageIcon, Code, QrCode, Lock } from "lucide-react";
 import { TOOLS } from "@/lib/constants";
-import { useDict } from "@/components/shared/locale-provider";
+import { useDict, useLocale } from "@/components/shared/locale-provider";
+import { localePath, stripLocaleFromPath } from "@/i18n/locale-path";
 import { cn } from "@/lib/utils";
 
 const ICONS = {
@@ -18,14 +19,15 @@ const ICONS = {
 
 export function ToolsDropdown() {
   const pathname = usePathname();
+  const currentPath = stripLocaleFromPath(pathname);
   const dict = useDict();
+  const { locale } = useLocale();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const isActive = pathname.startsWith("/tools");
+  const isActive = currentPath.startsWith("/tools");
 
-  // Tutup saat klik di luar
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) {
@@ -36,12 +38,10 @@ export function ToolsDropdown() {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  // Tutup saat route berubah
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
-  // Hover handling untuk desktop
   function handleMouseEnter() {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     setOpen(true);
@@ -87,11 +87,12 @@ export function ToolsDropdown() {
           <div className="p-1.5">
             {TOOLS.map((tool) => {
               const Icon = ICONS[tool.icon] ?? ImageIcon;
-              const active = pathname === tool.href;
+              const active = currentPath === tool.href;
+              const copy = dict.tools.items[tool.key];
               return (
                 <Link
                   key={tool.href}
-                  href={tool.href}
+                  href={localePath(locale, tool.href)}
                   onClick={() => setOpen(false)}
                   className={cn(
                     "group flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors",
@@ -102,9 +103,9 @@ export function ToolsDropdown() {
                     <Icon className="h-4 w-4" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-sm font-medium">{tool.label}</p>
+                    <p className="text-sm font-medium">{copy.label}</p>
                     <p className="mt-0.5 line-clamp-2 text-xs text-muted-foreground">
-                      {tool.description}
+                      {copy.description}
                     </p>
                   </div>
                 </Link>

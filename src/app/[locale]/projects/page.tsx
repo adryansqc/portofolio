@@ -1,4 +1,4 @@
-// src/app/projects/page.tsx
+// src/app/[locale]/projects/page.tsx
 "use client";
 
 import { useState, useMemo } from "react";
@@ -7,25 +7,49 @@ import Link from "next/link";
 import { ArrowUpRight, ExternalLink, Sparkles } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
-import { useDict } from "@/components/shared/locale-provider";
+import { useDict, useLocale } from "@/components/shared/locale-provider";
 import {
-  PROJECTS,
+  getProjects,
   PROJECT_CATEGORIES,
   type ProjectCategory,
 } from "@/lib/constants";
+import { localePath } from "@/i18n/locale-path";
 import { cn } from "@/lib/utils";
+
+type CategoryLabelKey =
+  | "fullStack"
+  | "frontend"
+  | "backend"
+  | "mobile";
+
+const CATEGORY_KEYS: Record<Exclude<ProjectCategory, "All">, CategoryLabelKey> = {
+  "Full Stack": "fullStack",
+  Frontend: "frontend",
+  Backend: "backend",
+  Mobile: "mobile",
+};
 
 export default function ProjectsPage() {
   const [filter, setFilter] = useState<ProjectCategory>("All");
   const dict = useDict();
+  const { locale } = useLocale();
+  const projects = useMemo(() => getProjects(locale), [locale]);
 
   const filtered = useMemo(
     () =>
       filter === "All"
-        ? PROJECTS
-        : PROJECTS.filter((p) => p.category === filter),
-    [filter]
+        ? projects
+        : projects.filter((p) => p.category === filter),
+    [filter, projects]
   );
+
+  function categoryLabel(category: Exclude<ProjectCategory, "All">) {
+    return dict.common.categories[CATEGORY_KEYS[category]];
+  }
+
+  function statusLabel(status: "Live" | "Local") {
+    return status === "Live" ? dict.common.status.live : dict.common.status.local;
+  }
 
   return (
     <Container className="py-16 sm:py-24">
@@ -54,7 +78,7 @@ export default function ProjectsPage() {
                 : "border-border text-muted-foreground hover:border-foreground/30 hover:text-foreground"
             )}
           >
-            {cat === "All" ? dict.sections.filterAll : cat}
+            {cat === "All" ? dict.sections.filterAll : categoryLabel(cat)}
           </button>
         ))}
       </div>
@@ -93,7 +117,7 @@ export default function ProjectsPage() {
                         : "bg-amber-400"
                     )}
                   />
-                  {project.status}
+                  {statusLabel(project.status)}
                 </span>
               </div>
 
@@ -108,7 +132,7 @@ export default function ProjectsPage() {
                   href={project.demo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`Open ${project.title}`}
+                  aria-label={dict.common.openProject.replace("{title}", project.title)}
                   className="absolute bottom-3 right-3 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-neutral-900 opacity-0 backdrop-blur-md transition-all group-hover:opacity-100 hover:scale-105"
                 >
                   <ArrowUpRight className="h-4 w-4" />
@@ -122,7 +146,7 @@ export default function ProjectsPage() {
                   {project.title}
                 </h2>
                 <span className="shrink-0 rounded-md border border-border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-                  {project.category}
+                  {categoryLabel(project.category as Exclude<ProjectCategory, "All">)}
                 </span>
               </div>
 
@@ -158,7 +182,7 @@ export default function ProjectsPage() {
                   </span>
                 )}
                 <Link
-                  href={`/projects/${project.slug}`}
+                  href={localePath(locale, `/projects/${project.slug}`)}
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
                   {dict.common.details} →
@@ -195,7 +219,7 @@ export default function ProjectsPage() {
             {dict.common.openGithub}
           </a>
           <Link
-            href="/"
+            href={localePath(locale, "/")}
             className="inline-flex h-11 items-center gap-2 rounded-lg border border-border px-6 text-sm font-medium transition-colors hover:bg-muted"
           >
             ← {dict.common.backToHome}

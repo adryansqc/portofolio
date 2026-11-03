@@ -1,40 +1,40 @@
-// src/app/tools/image-tools/page.tsx
+// src/app/[locale]/tools/image-tools/page.tsx
 "use client";
 
 import { useState } from "react";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
+import { useDict } from "@/components/shared/locale-provider";
 import { CompressTab } from "./_components/compress-tab";
 import { ConvertTab } from "./_components/convert-tab";
 import { PdfTab } from "./_components/pdf-tab";
 import { cn } from "@/lib/utils";
 
-const TABS = [
-  { id: "compress", label: "Kompres" },
-  { id: "convert", label: "Ubah Format" },
-  { id: "pdf", label: "Ke PDF" },
-] as const;
-
-type Tab = (typeof TABS)[number]["id"];
+type Tab = "compress" | "convert" | "pdf";
 
 export default function ImageToolsPage() {
   const [tab, setTab] = useState<Tab>("compress");
+  const dict = useDict();
+  const tabs: Array<{ id: Tab; label: string }> = [
+    { id: "compress", label: dict.tools.imageTools.tabs.compress },
+    { id: "convert", label: dict.tools.imageTools.tabs.convert },
+    { id: "pdf", label: dict.tools.imageTools.tabs.pdf },
+  ];
 
   return (
     <Container className="py-16 sm:py-24">
       <div className="max-w-2xl animate-fade-in-up">
-        <Badge>Tools</Badge>
+        <Badge>{dict.tools.badge}</Badge>
         <h1 className="mt-6 text-3xl font-semibold tracking-tight sm:text-4xl">
-          Image Tools
+          {dict.tools.imageTools.title}
         </h1>
         <p className="mt-3 text-muted-foreground">
-          Kompres, ubah format, atau konversi gambar ke PDF. Semua diproses di
-          browser kamu — gambar tidak dikirim ke server.
+          {dict.tools.imageTools.description}
         </p>
       </div>
 
       <div className="mt-10 flex flex-wrap gap-2 animate-fade-in-up delay-100">
-        {TABS.map((t) => (
+        {tabs.map((t) => (
           <button
             key={t.id}
             onClick={() => setTab(t.id)}

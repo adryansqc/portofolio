@@ -4,10 +4,12 @@
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
-import { useDict } from "@/components/shared/locale-provider";
+import { useDict, useLocale } from "@/components/shared/locale-provider";
+import { localePath } from "@/i18n/locale-path";
 
 export function CTA() {
   const dict = useDict();
+  const { locale } = useLocale();
 
   return (
     <section>
@@ -24,7 +26,7 @@ export function CTA() {
               {dict.sections.getInTouch}
               <ArrowRight className="h-4 w-4" />
             </Button>
-            <Button href="/projects" variant="outline" size="lg">
+            <Button href={localePath(locale, "/projects")} variant="outline" size="lg">
               {dict.sections.seeProjects}
             </Button>
           </div>

@@ -1,16 +1,19 @@
-// src/app/tools/image-tools/_components/compress-tab.tsx
+// src/app/[locale]/tools/image-tools/_components/compress-tab.tsx
 "use client";
 
 import { useState } from "react";
 import { sinter } from "sinter-js";
 import { Download, Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useDict } from "@/components/shared/locale-provider";
 
 export function CompressTab() {
   const [file, setFile] = useState<File | null>(null);
   const [result, setResult] = useState<{ url: string; size: number; original: number } | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const dict = useDict();
+  const copy = dict.tools.imageTools.compress;
 
   async function handleCompress() {
     if (!file) return;
@@ -22,7 +25,7 @@ export function CompressTab() {
       const blob = await sinter()
         .keepFormat()
         .maxQuality(80)
-        .maxDimensions({ width: 1920 }) // Catatan: nama method berubah jadi maxDimensions
+        .maxDimensions({ width: 1920 })
         .compress(file);
 
       setResult({
@@ -31,18 +34,21 @@ export function CompressTab() {
         original: file.size,
       });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Gagal kompres gambar.");
+      console.error("[compress-tab]", err);
+      setError(copy.error);
     } finally {
       setLoading(false);
     }
   }
 
+  const savedPercent = result
+    ? (((result.original - result.size) / result.original) * 100).toFixed(1)
+    : null;
+
   return (
     <div className="rounded-2xl border border-border p-6">
-      <h2 className="text-lg font-semibold">Kompres Gambar</h2>
-      <p className="mt-1 text-sm text-muted-foreground">
-        Kecilkan ukuran file dengan mengurangi kualitas dan/atau resolusi.
-      </p>
+      <h2 className="text-lg font-semibold">{copy.title}</h2>
+      <p className="mt-1 text-sm text-muted-foreground">{copy.description}</p>
 
       <input
         type="file"
@@ -58,23 +64,23 @@ export function CompressTab() {
         <div className="mt-4 flex flex-wrap items-center gap-3">
           <Button onClick={handleCompress} disabled={loading}>
             <Upload className="h-4 w-4" />
-            {loading ? "Memproses..." : "Kompres"}
+            {loading ? copy.processing : copy.action}
           </Button>
           <span className="text-xs text-muted-foreground">
-            Original: {(file.size / 1024).toFixed(1)} KB
+            {dict.common.original} {(file.size / 1024).toFixed(1)} KB
           </span>
         </div>
       )}
 
       {error && <p className="mt-4 text-sm text-red-500">{error}</p>}
 
-      {result && (
+      {result && savedPercent && (
         <div className="mt-6 rounded-xl border border-border bg-muted/30 p-4">
           <p className="text-sm">
-            Hasil: <strong>{(result.size / 1024).toFixed(1)} KB</strong>{" "}
+            {dict.common.result} <strong>{(result.size / 1024).toFixed(1)} KB</strong>{" "}
             <span className="text-muted-foreground">
-              (dari {(result.original / 1024).toFixed(1)} KB, hemat{" "}
-              {(((result.original - result.size) / result.original) * 100).toFixed(1)}%)
+              ({dict.common.from} {(result.original / 1024).toFixed(1)} KB,{" "}
+              {dict.common.savedPercent.replace("{percent}", savedPercent)})
             </span>
           </p>
           <a
@@ -83,7 +89,7 @@ export function CompressTab() {
             className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-foreground underline underline-offset-4 hover:opacity-70"
           >
             <Download className="h-4 w-4" />
-            Download Hasil
+            {copy.download}
           </a>
         </div>
       )}

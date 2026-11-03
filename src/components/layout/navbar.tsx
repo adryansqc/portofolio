@@ -7,22 +7,25 @@ import { Menu, X, Download } from "lucide-react";
 import { useState } from "react";
 import { NAV_LINKS, SITE, TOOLS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { localePath, stripLocaleFromPath } from "@/i18n/locale-path";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { LocaleToggle } from "@/components/shared/locale-toggle";
-import { useDict } from "@/components/shared/locale-provider";
+import { useDict, useLocale } from "@/components/shared/locale-provider";
 import { ToolsDropdown } from "./tools-dropdown";
 
 export function Navbar() {
   const pathname = usePathname();
+  const currentPath = stripLocaleFromPath(pathname);
   const [open, setOpen] = useState(false);
   const dict = useDict();
+  const { locale } = useLocale();
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/70 backdrop-blur-md">
       <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between px-6">
         {/* Logo */}
         <Link
-          href="/"
+          href={localePath(locale, "/")}
           className="text-sm font-semibold tracking-tight hover:opacity-80 transition-opacity"
         >
           {SITE.domain}
@@ -33,12 +36,12 @@ export function Navbar() {
           {NAV_LINKS.map((link) => {
             const active =
               link.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(link.href);
+                ? currentPath === "/"
+                : currentPath.startsWith(link.href);
             return (
               <Link
                 key={link.href}
-                href={link.href}
+                href={localePath(locale, link.href)}
                 className={cn(
                   "rounded-md px-3 py-1.5 text-sm transition-colors",
                   active
@@ -46,8 +49,7 @@ export function Navbar() {
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >
-                {dict.nav[link.label.toLowerCase() as keyof typeof dict.nav] ??
-                  link.label}
+                {dict.nav[link.labelKey]}
               </Link>
             );
           })}
@@ -73,7 +75,8 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            aria-label="Toggle menu"
+            aria-label={dict.aria.toggleMenu}
+            aria-expanded={open}
             className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors md:hidden"
           >
             {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
@@ -88,12 +91,11 @@ export function Navbar() {
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
-                href={link.href}
+                href={localePath(locale, link.href)}
                 onClick={() => setOpen(false)}
                 className="rounded-md px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
               >
-                {dict.nav[link.label.toLowerCase() as keyof typeof dict.nav] ??
-                  link.label}
+                {dict.nav[link.labelKey]}
               </Link>
             ))}
 
@@ -105,11 +107,11 @@ export function Navbar() {
               {TOOLS.map((tool) => (
                 <Link
                   key={tool.href}
-                  href={tool.href}
+                  href={localePath(locale, tool.href)}
                   onClick={() => setOpen(false)}
                   className="rounded-md px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                 >
-                  {tool.label}
+                  {dict.tools.items[tool.key].label}
                 </Link>
               ))}
             </div>

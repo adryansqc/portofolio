@@ -1,16 +1,19 @@
-// src/app/tools/image-tools/_components/pdf-tab.tsx
+// src/app/[locale]/tools/image-tools/_components/pdf-tab.tsx
 "use client";
 
 import { useState } from "react";
 import { PDFDocument } from "pdf-lib";
 import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useDict } from "@/components/shared/locale-provider";
 
 export function PdfTab() {
   const [file, setFile] = useState<File | null>(null);
   const [result, setResult] = useState<{ url: string; size: number } | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const dict = useDict();
+  const copy = dict.tools.imageTools.pdf;
 
   async function handleConvert() {
     if (!file) return;
@@ -42,7 +45,6 @@ export function PdfTab() {
       });
 
       const pdfBytes = await pdfDoc.save();
-      // ✅ FIX: paksa tipe ke ArrayBuffer murni
       const blob = new Blob([pdfBytes.buffer as ArrayBuffer], { type: "application/pdf" });
 
       setResult({
@@ -50,7 +52,8 @@ export function PdfTab() {
         size: blob.size,
       });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Gagal konversi ke PDF.");
+      console.error("[pdf-tab]", err);
+      setError(copy.error);
     } finally {
       setLoading(false);
     }
@@ -58,11 +61,8 @@ export function PdfTab() {
 
   return (
     <div className="rounded-2xl border border-border p-6">
-      <h2 className="text-lg font-semibold">Konversi ke PDF</h2>
-      <p className="mt-1 text-sm text-muted-foreground">
-        Ubah gambar menjadi file PDF. Mendukung PNG, JPEG, dan format lain
-        (dikonversi otomatis).
-      </p>
+      <h2 className="text-lg font-semibold">{copy.title}</h2>
+      <p className="mt-1 text-sm text-muted-foreground">{copy.description}</p>
 
       <input
         type="file"
@@ -77,10 +77,10 @@ export function PdfTab() {
       {file && (
         <div className="mt-4 flex flex-wrap items-center gap-3">
           <Button onClick={handleConvert} disabled={loading}>
-            {loading ? "Memproses..." : "Konversi ke PDF"}
+            {loading ? copy.processing : copy.action}
           </Button>
           <span className="text-xs text-muted-foreground">
-            Original: {(file.size / 1024).toFixed(1)} KB
+            {dict.common.original} {(file.size / 1024).toFixed(1)} KB
           </span>
         </div>
       )}
@@ -90,7 +90,7 @@ export function PdfTab() {
       {result && (
         <div className="mt-6 rounded-xl border border-border bg-muted/30 p-4">
           <p className="text-sm">
-            Hasil: <strong>{(result.size / 1024).toFixed(1)} KB</strong> (.pdf)
+            {dict.common.result} <strong>{(result.size / 1024).toFixed(1)} KB</strong> (.pdf)
           </p>
           <a
             href={result.url}
@@ -98,7 +98,7 @@ export function PdfTab() {
             className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-foreground underline underline-offset-4 hover:opacity-70"
           >
             <Download className="h-4 w-4" />
-            Download PDF
+            {copy.download}
           </a>
         </div>
       )}
@@ -114,9 +114,6 @@ async function convertToPng(file: File): Promise<Blob> {
   const ctx = canvas.getContext("2d")!;
   ctx.drawImage(bitmap, 0, 0);
   return new Promise((resolve, reject) => {
-    canvas.toBlob(
-      (blob) => (blob ? resolve(blob) : reject(new Error("Gagal konversi"))),
-      "image/png"
-    );
+    canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error("convert failed"))), "image/png");
   });
 }

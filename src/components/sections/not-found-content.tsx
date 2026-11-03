@@ -3,10 +3,12 @@
 
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
-import { useDict } from "@/components/shared/locale-provider";
+import { useDict, useLocale } from "@/components/shared/locale-provider";
+import { localePath } from "@/i18n/locale-path";
 
 export function NotFoundContent() {
   const dict = useDict();
+  const { locale } = useLocale();
 
   return (
     <Container className="flex min-h-[60vh] flex-col items-center justify-center text-center">
@@ -18,7 +20,7 @@ export function NotFoundContent() {
         {dict.common.notFoundDesc}
       </p>
       <div className="mt-8">
-        <Button href="/">{dict.common.backHome}</Button>
+        <Button href={localePath(locale, "/")}>{dict.common.backHome}</Button>
       </div>
     </Container>
   );

@@ -3,17 +3,19 @@
 
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "./theme-provider";
+import { useDict } from "./locale-provider";
 import { cn } from "@/lib/utils";
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
+  const dict = useDict();
   const isDark = resolvedTheme === "dark";
 
   return (
     <button
       type="button"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      aria-label="Toggle theme"
+      aria-label={dict.aria.toggleTheme}
       className={cn(
         "relative inline-flex h-9 w-9 items-center justify-center rounded-lg",
         "text-muted-foreground hover:text-foreground hover:bg-muted",
