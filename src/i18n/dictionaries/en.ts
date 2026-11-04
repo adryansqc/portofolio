@@ -33,6 +33,9 @@ export const en: Dictionary = {
     idPhotoTitle: "ID Photo Maker",
     idPhotoDescription:
       "Crop, resize, and remove backgrounds for ID photos directly in the browser.",
+    bmiCalculatorTitle: "BMI Calculator",
+    bmiCalculatorDescription:
+      "Calculate Body Mass Index (BMI) directly in the browser.",
   },
 
   nav: {
@@ -192,6 +195,10 @@ export const en: Dictionary = {
         label: "Base64 Encoder/Decoder",
         description: "Encode or decode text to Base64 quickly.",
       },
+      bmiCalculator: {
+        label: "BMI Calculator",
+        description: "Calculate ideal body weight based on height and weight.",
+      },
     },
     imageTools: {
       title: "Image Tools",
@@ -323,6 +330,27 @@ export const en: Dictionary = {
       imageOnly: "Only image files are supported.",
       outputHint:
         "Downloads are 300 DPI. Use automatic background removal if you want to change the background.",
+    },
+    bmiCalculator: {
+      title: "BMI Calculator",
+      description:
+        "Calculate Body Mass Index (BMI) to assess if your weight is ideal. Everything runs in the browser — data is not sent to a server.",
+      weightLabel: "Weight (kg)",
+      heightLabel: "Height (cm)",
+      ageLabel: "Age (optional)",
+      genderLabel: "Gender",
+      male: "Male",
+      female: "Female",
+      calculate: "Calculate BMI",
+      reset: "Reset",
+      resultLabel: "BMI Result",
+      categoryLabel: "Category",
+      underweight: "Underweight",
+      normal: "Normal",
+      overweight: "Overweight",
+      obese: "Obese",
+      enterValues: "Enter weight and height to start calculating.",
+      invalidValues: "Please enter valid values for weight and height.",
     },
   },
 

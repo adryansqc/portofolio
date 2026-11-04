@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Image as ImageIcon, Code, QrCode, Lock, FileText, Camera } from "lucide-react";
+import { ChevronDown, Image as ImageIcon, Code, QrCode, Lock, FileText, Camera, Calculator } from "lucide-react";
 import { TOOLS } from "@/lib/constants";
 import { useDict, useLocale } from "@/components/shared/locale-provider";
 import { localePath, stripLocaleFromPath } from "@/i18n/locale-path";
@@ -17,6 +17,7 @@ const ICONS = {
   code: Code,
   qr: QrCode,
   lock: Lock,
+  calculator: Calculator,
 } as const;
 
 export function ToolsDropdown() {
@@ -84,9 +85,9 @@ export function ToolsDropdown() {
       {open && (
         <div
           role="menu"
-          className="glass absolute left-0 top-full mt-1 w-72 overflow-hidden rounded-xl animate-fade-in"
+          className="absolute left-0 top-full mt-1 w-72 overflow-hidden rounded-xl border border-border bg-background animate-fade-in shadow-lg"
         >
-          <div className="p-1.5">
+          <div className="p-1.5 max-h-[300px] overflow-y-auto">
             {TOOLS.map((tool) => {
               const Icon = ICONS[tool.icon] ?? ImageIcon;
               const active = currentPath === tool.href;
@@ -97,7 +98,7 @@ export function ToolsDropdown() {
                   href={localePath(locale, tool.href)}
                   onClick={() => setOpen(false)}
                   className={cn(
-                    "group flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors",
+                    "group flex items-start gap-3 rounded-lg px-3 py-2 transition-colors",
                     active ? "bg-muted" : "hover:bg-muted"
                   )}
                 >
@@ -106,7 +107,7 @@ export function ToolsDropdown() {
                   </div>
                   <div className="min-w-0">
                     <p className="text-sm font-medium">{copy.label}</p>
-                    <p className="mt-0.5 line-clamp-2 text-xs text-muted-foreground">
+                    <p className="mt-0.5 text-xs text-muted-foreground">
                       {copy.description}
                     </p>
                   </div>

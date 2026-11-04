@@ -13,6 +13,7 @@ import {
   Code,
   QrCode,
   Lock,
+  Calculator,
 } from "lucide-react";
 import { useState } from "react";
 import { NAV_LINKS, SITE, TOOLS } from "@/lib/constants";
@@ -30,6 +31,7 @@ const TOOL_ICONS = {
   code: Code,
   qr: QrCode,
   lock: Lock,
+  calculator: Calculator,
 } as const;
 
 export function Navbar() {

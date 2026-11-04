@@ -31,6 +31,9 @@ export const id = {
     idPhotoTitle: "Pas Foto Maker",
     idPhotoDescription:
       "Crop, resize, dan hapus latar pas foto langsung di browser.",
+    bmiCalculatorTitle: "Kalkulator BMI",
+    bmiCalculatorDescription:
+      "Hitung Indeks Massa Tubuh (BMI) langsung di browser.",
   },
 
   nav: {
@@ -190,6 +193,10 @@ export const id = {
         label: "Base64 Encoder/Decoder",
         description: "Encode atau decode teks ke Base64 dengan cepat.",
       },
+      bmiCalculator: {
+        label: "Kalkulator BMI",
+        description: "Hitung idealitas berat badan berdasarkan tinggi dan berat.",
+      },
     },
     imageTools: {
       title: "Image Tools",
@@ -321,6 +328,27 @@ export const id = {
       imageOnly: "Hanya file gambar yang didukung.",
       outputHint:
         "Hasil unduhan beresolusi 300 DPI. Gunakan hapus latar otomatis jika ingin ganti background.",
+    },
+    bmiCalculator: {
+      title: "Kalkulator BMI",
+      description:
+        "Hitung Indeks Massa Tubuh (BMI) untuk menilai apakah berat badanmu ideal. Semua diproses di browser — data tidak dikirim ke server.",
+      weightLabel: "Berat Badan (kg)",
+      heightLabel: "Tinggi Badan (cm)",
+      ageLabel: "Usia (opsional)",
+      genderLabel: "Jenis Kelamin",
+      male: "Laki-laki",
+      female: "Perempuan",
+      calculate: "Hitung BMI",
+      reset: "Reset",
+      resultLabel: "Hasil BMI",
+      categoryLabel: "Kategori",
+      underweight: "Berat badan kurang",
+      normal: "Normal",
+      overweight: "Berat badan berlebih",
+      obese: "Obesitas",
+      enterValues: "Masukkan berat dan tinggi badan untuk mulai menghitung.",
+      invalidValues: "Masukkan nilai yang valid untuk berat dan tinggi badan.",
     },
   },
 

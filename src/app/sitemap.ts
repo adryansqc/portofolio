@@ -16,6 +16,7 @@ const STATIC_PATHS = [
   "/tools/qr-generator",
   "/tools/password-generator",
   "/tools/base64",
+  "/tools/bmi-calculator",
 ] as const;
 
 function alternates(path: string) {

@@ -50,6 +50,11 @@ export const TOOLS = [
     key: "base64",
     icon: "code" as const,
   },
+  {
+    href: "/tools/bmi-calculator",
+    key: "bmiCalculator",
+    icon: "calculator" as const,
+  },
 ] as const;
 
 export const SOCIALS = [
